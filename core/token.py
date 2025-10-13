@@ -3,13 +3,12 @@ DragonTree
 Token & TokenType
 """
 
-
 from enum import Enum
 
 
 class TokenType(Enum):
     """Token Types"""
-    
+
     # keywords
     OUTPUT = "OUTPUT"
     VAR = "VAR"
@@ -29,6 +28,7 @@ class TokenType(Enum):
     COMMENT = "COMMENT"
     EOF = "EOF"
 
+
 class Token:
     """Token"""
 
@@ -38,4 +38,3 @@ class Token:
 
     def __repr__(self):
         return f"{self.type}: {self.value}"
-
