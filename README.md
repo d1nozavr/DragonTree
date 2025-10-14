@@ -1,15 +1,18 @@
-# DragonTree
-======
-DragonTree - programming language.
+DragonTree
+---
 
-## Versions
-[IN-DEV] Current version: **0.0.1 (alpha)**
+> [!WARNING]
+> This project is still in development!
 
-## [Only in this version] Installation
-------
+Versions
+---
+Current *available* version: **0.0.1 (alpha)**
+
+Installation
+---
 
 ### Dependencies
-You need to have only "**Python**". *This is only needed in this version*.
+> You need to have only "**Python**".
 
 ### Windows
 ```
