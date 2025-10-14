@@ -9,23 +9,14 @@ from enum import Enum
 class TokenType(Enum):
     """Token Types"""
 
-    # keywords
-    OUTPUT = "OUTPUT"
-    VAR = "VAR"
-
-    # identifiers and literals
-    IDENTIFIER = "IDENTIFIER"
-    NUMBER = "NUMBER"
-    STRING = "STRING"
-
-    # operators
     PLUS = "PLUS"
     MINUS = "MINUS"
     MULTIPLY = "MULTIPLY"
     DIVIDE = "DIVIDE"
+    COLON = "COLON"
 
-    # special tokens
-    COMMENT = "COMMENT"
+    NUMBER = "NUMBER"
+
     EOF = "EOF"
 
 
