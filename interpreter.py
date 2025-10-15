@@ -1,25 +1,22 @@
 """
 DragonTree
 Interpreter
-Not final variant
 """
 
-import core.Lexer
+import os
 
-
-def main():
-    Lexer = core.Lexer.Lexer()
-    print("DragonTree 0.0.1 (pre-alpha)")
-    print("Type 'quit' to quit")
-
-    while True:
-        string = input("→ ")
-
-        if string:
-            if string == "quit":
-                break
-            print(Lexer.lex(string))
-
+from core.lexer import Lexer
 
 if __name__ == "__main__":
-    main()
+    lexer = Lexer()
+
+    print("DragonTree [v0.0.1 (alpha)]")
+    file_path = input("Path to 'file'.dt → ")
+
+    if os.path.isfile(file_path):
+        file = open(file_path, "r").read()
+
+        tokens = list(lexer.lex(file))
+
+        for token in tokens:
+            print(token)
