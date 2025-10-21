@@ -1,2 +1,0 @@
-variable_name = 3.14
-output(variable_name)
