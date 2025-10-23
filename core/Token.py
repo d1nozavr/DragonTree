@@ -1,3 +1,8 @@
+"""
+DragonTree
+Token
+"""
+
 class Token:
     def __init__(self, _type, _value=None):
         self._type = _type

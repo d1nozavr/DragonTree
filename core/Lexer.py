@@ -1,3 +1,9 @@
+"""
+DragonTree
+Lexer
+"""
+
+
 from core.Token import Token
 from core.TokenType import TokenType
 
