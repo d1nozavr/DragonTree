@@ -14,6 +14,8 @@ Installation
 ### Dependencies
 > You need to have only "**Python**".
 
+> **Python** version is **3.14** *recommended*.
+
 ### Windows
 ```
 git clone https://github.com/d1nozavr/DragonTree.git
