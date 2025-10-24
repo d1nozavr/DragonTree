@@ -3,55 +3,57 @@ DragonTree
 Lexer
 """
 
-
 from core.Token import Token
 from core.TokenType import TokenType
 
 
 class Lexer:
-    def __init__(self, _string):
-        self._pos: int = 0
+    def __init__(self, string):
+        self.string: str = string
+        self.pos: int = 0
+        self.length: int = len(self.string)
 
-        self._string: str = _string
+        self.tokens: list = []
 
-        self._length: int = len(self._string)
+    def peek(self):
+        return self.string[self.pos]
 
-        self._tokens: list = []
+    def advance(self):
+        self.pos += 1
 
     def lex(self):
-        while self._pos < self._length:
-            if self._string[self._pos].isdigit():
+        while self.pos < self.length:
+            if self.peek().isdigit():
                 number = ""
 
-                while self._pos < self._length and self._string[self._pos].isdigit():
-                    number += self._string[self._pos]
-                    self._pos += 1
+                while self.pos < self.length and self.peek().isdigit():
+                    number += self.peek()
+                    self.advance()
 
-                self._tokens.append(Token(TokenType.NUMBER, int(number)))
-                continue
+                self.tokens.append(Token(TokenType.NUMBER, int(number)))
 
-            elif self._string[self._pos] == "+":
-                self._tokens.append(Token(TokenType.PLUS))
-                self._pos += 1
+            elif self.peek() == "+":
+                self.tokens.append(Token(TokenType.PLUS, "+"))
+                self.advance()
 
-            elif self._string[self._pos] == "-":
-                self._tokens.append(Token(TokenType.MINUS))
-                self._pos += 1
+            elif self.peek() == "-":
+                self.tokens.append(Token(TokenType.MINUS, "-"))
+                self.advance()
 
-            elif self._string[self._pos] == "*":
-                self._tokens.append(Token(TokenType.MULTIPLY))
-                self._pos += 1
+            elif self.peek() == "*":
+                self.tokens.append(Token(TokenType.MULTIPLY, "*"))
+                self.advance()
 
-            elif self._string[self._pos] == "/":
-                self._tokens.append(Token(TokenType.DIVIDE))
-                self._pos += 1
+            elif self.peek() == "/":
+                self.tokens.append(Token(TokenType.DIVIDE, "/"))
+                self.advance()
 
-            elif self._string[self._pos] == ":":
-                self._tokens.append(Token(TokenType.COLON))
-                self._pos += 1
+            elif self.peek() == ":":
+                self.tokens.append(Token(TokenType.COLON, ":"))
+                self.advance()
 
             else:
-                raise RuntimeError(f"unknown token at {self._pos}")
+                raise RuntimeError(f"Unknown token '{self.peek()}' at pos {self.pos}")
 
-        self._tokens.append(Token(TokenType.EOF))
-        return self._tokens
+        self.tokens.append(Token(TokenType.EOF, "EOF"))
+        return self.tokens

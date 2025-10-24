@@ -3,7 +3,6 @@ DragonTree
 TokenType
 """
 
-
 from enum import Enum
 
 

@@ -1,21 +1,29 @@
 """
 DragonTree
-Runner for DragonTree
-Warning! > It's will soon replaced by 'shell'
+Runner
 """
 
 from core.Lexer import Lexer
 
-if __name__ == "__main__":
+
+def main(debug=False):
     print("DragonTree v0.0.1 (alpha)")
-    print("Type 'quit' for quit")
+    print("Type 'help' for more information.")
 
     while True:
         string = input("→ ")
 
-        if string == "quit":
-            break
+        if string:
+            if string == "quit":
+                break
 
-        tokens = Lexer(string).lex()
+            tokens = Lexer(string).lex()
 
-        print(f"{tokens}")
+            print("Tokens:")
+
+            for token in tokens:
+                print(f"  - {token}")
+
+
+if __name__ == "__main__":
+    main()
