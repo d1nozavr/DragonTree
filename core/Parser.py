@@ -24,32 +24,46 @@ class Parser:
         self.pos += 1
 
     def parse(self):
-        return self.expr()
+        results = self.expr()
+        
+        return results
 
     def expr(self):
         left = self.term()
 
-        if self.peek().type in (TokenType.PLUS, TokenType.MINUS):
-            operation = self.peek()
-            self.advance()
+        while True:
+            token = self.peek()
 
-            right = self.term()
+            if token.type in (TokenType.PLUS, TokenType.MINUS):
+                operation = token
+                self.advance()
 
-            left = BinOpNode(left, operation.value, right).evaluate()
+                right = self.term()
 
+                left = BinOpNode(left, operation.value, right).evaluate()
+
+                continue
+
+            break
         return left
 
     def term(self):
         left = self.factor()
 
-        if self.peek().type in (TokenType.MULTIPLY, TokenType.DIVIDE):
-            operation = self.peek()
-            self.advance()
+        while True:
+            token = self.peek()
 
-            right = self.factor()
+            if token.type in (TokenType.MULTIPLY, TokenType.DIVIDE):
+                operation = token
+                self.advance()
+                
+                right = self.factor()
 
-            left = BinOpNode(left, operation.value, right).evaluate()
+                left = BinOpNode(left, operation.value, right).evaluate()
 
+                continue
+            
+            break
         return left
 
     def factor(self):
@@ -58,3 +72,17 @@ class Parser:
         if token.type == TokenType.NUMBER:
             self.advance()
             return NumberNode(token.value).evaluate()
+        
+        elif token.type == TokenType.PLUS:
+            self.advance()
+
+            right = self.factor()
+            return BinOpNode(None, token.value, right).evaluate()
+        
+        elif token.type == TokenType.MINUS:
+            self.advance()
+
+            right = self.factor()
+            return BinOpNode(None, token.value, right).evaluate()
+        
+        raise RuntimeError(f"Unexpected token '{token}' at pos {self.pos}")

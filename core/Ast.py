@@ -24,7 +24,10 @@ class BinOpNode:
                 return self.left + self.right
 
             case "-":
-                return self.left - self.right
+                if self.left:
+                    return self.left - self.right
+
+                return -self.right
 
             case "*":
                 return self.left * self.right
