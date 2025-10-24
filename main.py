@@ -4,10 +4,13 @@ Runner
 """
 
 from core.Lexer import Lexer
+from core.Parser import Parser
+
 
 def help():
     print("Help:")
     print("  - 'quit'")
+
 
 def main(debug=False):
     print("DragonTree v0.0.1 (alpha)")
@@ -25,12 +28,19 @@ def main(debug=False):
 
             else:
                 tokens = Lexer(string).lex()
+                parser = Parser(tokens).parse()
 
-                print("Tokens:")
+                if debug:
+                    print("Tokens:")
 
-                for token in tokens:
-                    print(f"  - {token}")
+                    for token in tokens:
+                        print(f"  - {token}")
+
+                    print(f"Result: {parser} type={type(parser)}")
+
+                else:
+                    print(f"{parser}")
 
 
 if __name__ == "__main__":
-    main()
+    main(debug=False)

@@ -16,7 +16,7 @@ class Lexer:
         self.tokens: list = []
 
     def peek(self):
-        return self.string[self.pos]
+        return self.string[self.pos] if self.pos < self.length else None
 
     def advance(self):
         self.pos += 1
