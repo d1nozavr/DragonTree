@@ -5,6 +5,9 @@ Runner
 
 from core.Lexer import Lexer
 
+def help():
+    print("Help:")
+    print("  - 'quit'")
 
 def main(debug=False):
     print("DragonTree v0.0.1 (alpha)")
@@ -17,12 +20,16 @@ def main(debug=False):
             if string == "quit":
                 break
 
-            tokens = Lexer(string).lex()
+            elif string == "help":
+                help()
 
-            print("Tokens:")
+            else:
+                tokens = Lexer(string).lex()
 
-            for token in tokens:
-                print(f"  - {token}")
+                print("Tokens:")
+
+                for token in tokens:
+                    print(f"  - {token}")
 
 
 if __name__ == "__main__":
