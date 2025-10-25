@@ -23,7 +23,7 @@ class Lexer:
 
     def lex(self):
         while self.pos < self.length:
-            if self.peek() == " ":
+            if self.peek() == " " or self.peek() == "\n":
                 self.advance()
 
             elif self.peek().isdigit():
@@ -48,6 +48,20 @@ class Lexer:
                 else:
                     self.tokens.append(Token(TokenType.ID, word))
 
+            elif self.peek() == '"':
+                string = ""
+
+                self.advance()
+
+                while self.pos < self.length:
+                    string += self.peek()
+                    self.advance()
+
+                    if self.peek() == '"':
+                        self.advance()
+                        self.tokens.append(Token(TokenType.STRING, string))
+                        break
+
             elif self.peek() == "+":
                 self.tokens.append(Token(TokenType.PLUS, "+"))
                 self.advance()
@@ -62,6 +76,10 @@ class Lexer:
 
             elif self.peek() == "/":
                 self.tokens.append(Token(TokenType.DIVIDE, "/"))
+                self.advance()
+
+            elif self.peek() == "=":
+                self.tokens.append(Token(TokenType.EQUALS, "="))
                 self.advance()
 
             elif self.peek() == ":":
