@@ -6,10 +6,22 @@ Ast
 
 class NumberNode:
     def __init__(self, value):
-        self.value = value
+        try:
+            self.value = int(value)
+
+        except ValueError:
+            raise ValueError(f"Type 'int' != Type '{type(value).__name__}'")
 
     def evaluate(self):
         return self.value
+
+
+class StringNode:
+    def __init__(self, value):
+        self.value = value
+
+    def evaluate(self):
+        return f"{self.value}"
 
 
 class BinOpNode:
@@ -21,7 +33,10 @@ class BinOpNode:
     def evaluate(self):
         match self.operation:
             case "+":
-                return self.left + self.right
+                if self.left:
+                    return self.left + self.right
+
+                return self.right
 
             case "-":
                 if self.left:
