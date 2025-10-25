@@ -11,14 +11,14 @@ Examples
 ---
 ### Version **0.0.1 (alpha)**
 Code:
-```zsh
+```bash
 output: 2+2
 output: -3
 output: 44
 ```
 
 Result:
-```zsh
+```bash
 4
 -3
 44
@@ -37,14 +37,14 @@ Installation
 > **Python** version is **3.14** *recommended*.
 
 ### Windows
-```zsh
+```bash
 git clone https://github.com/d1nozavr/DragonTree.git
 cd DragonTree
 python interpreter.py
 ```
 
 ### Linux/MacOS
-```zsh
+```bash
 git clone https://github.com/d1nozavr/DragonTree.git
 cd DragonTree
 python3 interpreter.py
