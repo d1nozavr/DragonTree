@@ -23,7 +23,10 @@ class Lexer:
 
     def lex(self):
         while self.pos < self.length:
-            if self.peek().isdigit():
+            if self.peek() == " ":
+                self.advance()
+
+            elif self.peek().isdigit():
                 number = ""
 
                 while self.pos < self.length and self.peek().isdigit():
@@ -31,6 +34,19 @@ class Lexer:
                     self.advance()
 
                 self.tokens.append(Token(TokenType.NUMBER, int(number)))
+
+            elif self.peek().isalpha():
+                word = ""
+
+                while self.pos < self.length and self.peek().isalnum():
+                    word += self.peek()
+                    self.advance()
+
+                if word == "output":
+                    self.tokens.append(Token(TokenType.OUTPUT, word))
+
+                else:
+                    self.tokens.append(Token(TokenType.ID, word))
 
             elif self.peek() == "+":
                 self.tokens.append(Token(TokenType.PLUS, "+"))
