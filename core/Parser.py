@@ -7,6 +7,7 @@ from core.Ast import (
     BinOpNode,
     NumberNode,
     OutputNode,
+    StringNode,
 )
 from core.TokenType import TokenType
 
@@ -38,6 +39,7 @@ class Parser:
             if token.type == TokenType.COLON:
                 self.advance()
                 right = self.expr()
+
                 return OutputNode(right)
 
             raise SyntaxError("Need ':' after 'output'")
@@ -88,6 +90,10 @@ class Parser:
         if token.type == TokenType.NUMBER:
             self.advance()
             return NumberNode(token.value).evaluate()
+
+        elif token.type == TokenType.STRING:
+            self.advance()
+            return StringNode(token.value).evaluate()
 
         elif token.type == TokenType.PLUS:
             self.advance()
