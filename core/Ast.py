@@ -37,3 +37,14 @@ class BinOpNode:
 
             case _:
                 return f"Uknown operator: '{self.operation}'"
+
+
+class OutputNode:
+    def __init__(self, value):
+        self.value = value
+
+    def evaluate(self):
+        print(f"{self.value}")
+
+    def __str__(self):
+        return f"{self.value}"
