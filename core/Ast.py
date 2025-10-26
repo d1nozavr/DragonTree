@@ -24,6 +24,17 @@ class StringNode:
         return f"{self.value}"
 
 
+class VariableNode:
+    def __init__(self, value):
+        self.value = value
+
+    def evaluate(self):
+        if isinstance(self.value, int):
+            return NumberNode(self.value).evaluate()
+
+        return StringNode(self.value).evaluate()
+
+
 class BinOpNode:
     def __init__(self, left, operation, right):
         self.left = left
@@ -60,6 +71,3 @@ class OutputNode:
 
     def evaluate(self):
         print(f"{self.value}")
-
-    def __str__(self):
-        return f"{self.value}"
