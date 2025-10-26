@@ -11,17 +11,21 @@ Examples
 ---
 ### Version **0.0.1 (alpha)**
 Code:
-```bash
-output: 2+2
-output: -3
-output: 44
-```
+```ruby
+output: "Hello, World!"
+
+x = 2
+greeting = "Welcome, User!"
+
+output: 2 + x * 2
+output: greeting
+``` 
 
 Result:
-```bash
-4
--3
-44
+```ruby
+Hello, World!
+6
+Welcome, User!
 ```
 
 Versions
