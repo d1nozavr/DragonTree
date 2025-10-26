@@ -1,4 +1,7 @@
 output: "Hello, World!"
-output: 1 + 2
-output: 44
-output: "1 + 2 = 3"
+
+x = 2
+greeting = "Welcome, User!"
+
+output: 2 + x * 2
+output: greeting
