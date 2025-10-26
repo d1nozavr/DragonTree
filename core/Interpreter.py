@@ -9,21 +9,20 @@ from core.Parser import Parser
 
 class Interpreter:
     def __init__(self, debug=False):
-        self.debug = debug
+        self.env: dict = {}
+        self.debug: bool = debug
 
     def interpret(self, string):
-        tokens: list = Lexer(string).lex()
-        parser = Parser(tokens).parse()
+        tokens = Lexer(string).lex()
+        parser = Parser(tokens, self.env)
 
         if self.debug:
             print("Tokens:")
             for token in tokens:
                 print(f"  - {token}")
 
-            if parser:
-                print(f"Result: {parser} type={type(parser)}")
-                print()
+            parser.parse()
+            print()
 
         else:
-            if parser:
-                print(f"{parser}")
+            parser.parse()

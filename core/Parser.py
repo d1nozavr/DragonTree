@@ -8,12 +8,15 @@ from core.Ast import (
     NumberNode,
     OutputNode,
     StringNode,
+    VariableNode,
 )
 from core.TokenType import TokenType
 
 
 class Parser:
-    def __init__(self, tokens):
+    def __init__(self, tokens, env):
+        self.env = env
+
         self.tokens: list = tokens
 
         self.pos: int = 0
@@ -26,25 +29,43 @@ class Parser:
         self.pos += 1
 
     def parse(self):
-        result = self.statement()
-        return result
+        if self.peek().type != TokenType.EOF:
+            result = self.statement()
+            return result
 
     def statement(self):
         token = self.peek()
 
-        if token.type == TokenType.OUTPUT:
+        if token.type == TokenType.ID:
+            return self.assignment()
+
+        elif token.type == TokenType.OUTPUT:
             self.advance()
 
             token = self.peek()
             if token.type == TokenType.COLON:
                 self.advance()
+
                 right = self.expr()
 
-                return OutputNode(right)
+                return OutputNode(right).evaluate()
 
             raise SyntaxError("Need ':' after 'output'")
 
-        raise SyntaxError("Invalid syntax")
+        raise SyntaxError(f"Invalid syntax {self.peek()}")
+
+    def assignment(self):
+        name = self.peek().value
+        self.advance()
+
+        if self.peek().type == TokenType.EQUALS:
+            self.advance()
+            value = self.expr()
+
+            self.env[name] = value
+
+        else:
+            raise SyntaxError(f"Need '=' after {name} at pos {self.pos}")
 
     def expr(self):
         left = self.term()
@@ -95,6 +116,10 @@ class Parser:
             self.advance()
             return StringNode(token.value).evaluate()
 
+        elif token.type == TokenType.ID:
+            self.advance()
+            return VariableNode(self.env[token.value]).evaluate()
+
         elif token.type == TokenType.PLUS:
             self.advance()
 
@@ -107,4 +132,4 @@ class Parser:
             right = self.factor()
             return BinOpNode(None, token.value, right).evaluate()
 
-        raise RuntimeError(f"Unexpected token '{token}' at pos {self.pos}")
+        raise RuntimeError(f"Unexpected token '{token.value}' at pos {self.pos}")
