@@ -55,7 +55,7 @@ git clone https://github.com/d1nozavr/DragonTree.git
 cd DragonTree
 
 # Run the project
-python -m run
+python3 -m run
 ```
 
 ### 🍎 macOS
@@ -65,7 +65,7 @@ git clone https://github.com/d1nozavr/DragonTree.git
 cd DragonTree
 
 # Run the project
-python -m run
+python3 -m run
 ```
 
 ## Examples (v0.0.1-alpha)
