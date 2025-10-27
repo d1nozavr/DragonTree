@@ -16,7 +16,7 @@
 
 ## :round_pushpin: Versions
 
-### v0.0.1-alpha - Stable
+### :white_check_mark: v0.0.1-alpha - Stable
 - Added:
     - Numbers & Expressions;
     - Strings;
@@ -26,7 +26,7 @@
 - Fixed:
     - Some bugs.
 
-### v0.0.2-alpha - In Development
+### :alarm_clock: v0.0.2-alpha - In Development
 - Planns:
     - New expression signs;
     - Float numbers;
@@ -38,7 +38,7 @@
 - **Git** — optional; used only to clone the repository.
 - **Python 3.14+** — required to run the project.  
 
-### 🖥 Windows
+### :computer: Windows
 ```powershell
 :: Clone the repository (optional)
 git clone https://github.com/d1nozavr/DragonTree.git
@@ -48,7 +48,7 @@ cd DragonTree
 python -m run
 ```
 
-### 🐧 Linux
+### :penguin: Linux
 ```bash
 # Clone the repository (optional)
 git clone https://github.com/d1nozavr/DragonTree.git
@@ -58,7 +58,7 @@ cd DragonTree
 python3 -m run
 ```
 
-### 🍎 macOS
+### :apple: macOS
 ```bash
 # Clone the repository (optional)
 git clone https://github.com/d1nozavr/DragonTree.git
@@ -68,7 +68,7 @@ cd DragonTree
 python3 -m run
 ```
 
-## Examples (v0.0.1-alpha)
+## :large_blue_diamond: Examples (v0.0.1-alpha)
 
 ```ruby
 output: "Hello, World!"
