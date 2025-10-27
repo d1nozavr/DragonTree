@@ -8,11 +8,12 @@
 ## :smiley: Author
 
 **Trifonov Yaroslav**
-[GitHub](https://github.com/d1nozavr)
+> [GitHub](https://github.com/d1nozavr)
 
 ## :books: About
-
-**DragonTree** - the programming language written in Python 3.14.
+**:dragon: DragonTree :deciduous_tree:**
+> The programming language written in Python 3.14.  
+> The language was created for data science, automation with scripts.
 
 ## :round_pushpin: Versions
 
@@ -35,8 +36,8 @@
 ## :pencil: Installation
 
 ### :unlock: Dependencies
-- **Git** — optional; used only to clone the repository.
 - **Python 3.14+** — required to run the project.  
+- **Git** — optional; used only to clone the repository.
 
 ### :computer: Windows
 ```powershell
