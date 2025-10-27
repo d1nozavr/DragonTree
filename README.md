@@ -1,16 +1,75 @@
-DragonTree
----
-Created by d1nozavr (Trifonov Yaroslav)
+# :dragon: DragonTree :deciduous_tree:
+![Python](https://img.shields.io/badge/python-3.14%2B-blue?style=for-the-badge&logo=python&logoColor=white)
+![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
 
 > [!WARNING]
-> This project is still in development!
+> **Status**: Work in Progress.
 
----
+## :smiley: Author
 
-Examples
----
-### Version **0.0.1 (alpha)**
-Code:
+**Trifonov Yaroslav**
+[GitHub](https://github.com/d1nozavr)
+
+## :books: About
+
+**DragonTree** - the programming language written in Python 3.14.
+
+## :round_pushpin: Versions
+
+### v0.0.1-alpha - Stable
+- Added:
+    - Numbers & Expressions;
+    - Strings;
+    - Variables;
+    - Output.
+
+- Fixed:
+    - Some bugs.
+
+### v0.0.2-alpha - In Development
+- Planns:
+    - New expression signs;
+    - Float numbers;
+    - Conditions (if, else).
+
+## :pencil: Installation
+
+### :unlock: Dependencies
+- **Git** — optional; used only to clone the repository.
+- **Python 3.14+** — required to run the project.  
+
+### 🖥 Windows
+```powershell
+:: Clone the repository (optional)
+git clone https://github.com/d1nozavr/DragonTree.git
+cd DragonTree
+
+:: Run the project
+python -m run
+```
+
+### 🐧 Linux
+```bash
+# Clone the repository (optional)
+git clone https://github.com/d1nozavr/DragonTree.git
+cd DragonTree
+
+# Run the project
+python -m run
+```
+
+### 🍎 macOS
+```bash
+# Clone the repository (optional)
+git clone https://github.com/d1nozavr/DragonTree.git
+cd DragonTree
+
+# Run the project
+python -m run
+```
+
+## Examples (v0.0.1-alpha)
+
 ```ruby
 output: "Hello, World!"
 
@@ -19,37 +78,10 @@ greeting = "Welcome, User!"
 
 output: 2 + x * 2
 output: greeting
-``` 
+```
 
-Result:
 ```ruby
 Hello, World!
 6
 Welcome, User!
-```
-
-Versions
----
-Current *available* version: **0.0.1 (alpha)**
-
-Installation
----
-
-### Dependencies
-> You need to have only "**Git**" and "**Python**".
-
-> **Python** version is **3.14** *recommended*.
-
-### Windows
-```bash
-git clone https://github.com/d1nozavr/DragonTree.git
-cd DragonTree
-python interpreter.py
-```
-
-### Linux/MacOS
-```bash
-git clone https://github.com/d1nozavr/DragonTree.git
-cd DragonTree
-python3 interpreter.py
 ```
