@@ -39,18 +39,22 @@ class Parser:
         if token.type == TokenType.ID:
             return self.assignment()
 
-        elif token.type == TokenType.OUTPUT:
-            self.advance()
+        elif token.type == TokenType.KEYWORD:
+            match token.value:
+                case "output":
+                    self.advance()
 
-            token = self.peek()
-            if token.type == TokenType.COLON:
-                self.advance()
+                    if self.peek().type == TokenType.COLON:
+                        self.advance()
 
-                right = self.expr()
+                        right = self.expr()
 
-                return OutputNode(right).evaluate()
+                        return OutputNode(right).evaluate()
 
-            raise SyntaxError("Need ':' after 'output'")
+                    raise SyntaxError("Need ':' after 'output'")
+
+                case _:
+                    raise NameError(f"Unknown keyword '{token.value}'")
 
         raise SyntaxError(f"Invalid syntax {self.peek()}")
 

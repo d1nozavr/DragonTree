@@ -9,11 +9,15 @@ from core.TokenType import TokenType
 
 class Lexer:
     def __init__(self, string):
-        self.string: str = string
-        self.pos: int = 0
-        self.length: int = len(self.string)
+        self.string = string
 
-        self.tokens: list = []
+        self.pos = 0
+        self.length = len(self.string)
+
+        self.tokens = []
+
+    def add_token(self, type, value):
+        self.tokens.append(Token(type, value))
 
     def peek(self):
         return self.string[self.pos] if self.pos < self.length else None
@@ -27,67 +31,84 @@ class Lexer:
                 self.advance()
 
             elif self.peek().isdigit():
-                number = ""
-
-                while self.pos < self.length and self.peek().isdigit():
-                    number += self.peek()
-                    self.advance()
-
-                self.tokens.append(Token(TokenType.NUMBER, int(number)))
+                self.lex_number()
 
             elif self.peek().isalpha():
-                word = ""
-
-                while self.pos < self.length and self.peek().isalnum():
-                    word += self.peek()
-                    self.advance()
-
-                if word == "output":
-                    self.tokens.append(Token(TokenType.OUTPUT, word))
-
-                else:
-                    self.tokens.append(Token(TokenType.ID, word))
+                self.lex_id()
 
             elif self.peek() == '"':
-                string = ""
-
-                self.advance()
-
-                while self.pos < self.length:
-                    string += self.peek()
-                    self.advance()
-
-                    if self.peek() == '"':
-                        self.advance()
-                        self.tokens.append(Token(TokenType.STRING, string))
-                        break
+                self.lex_string()
 
             elif self.peek() == "+":
-                self.tokens.append(Token(TokenType.PLUS, "+"))
+                self.add_token(TokenType.PLUS, "+")
                 self.advance()
 
             elif self.peek() == "-":
-                self.tokens.append(Token(TokenType.MINUS, "-"))
+                self.add_token(TokenType.MINUS, "-")
                 self.advance()
 
             elif self.peek() == "*":
-                self.tokens.append(Token(TokenType.MULTIPLY, "*"))
+                self.add_token(TokenType.MULTIPLY, "*")
                 self.advance()
 
             elif self.peek() == "/":
-                self.tokens.append(Token(TokenType.DIVIDE, "/"))
+                self.add_token(TokenType.DIVIDE, "/")
                 self.advance()
 
             elif self.peek() == "=":
-                self.tokens.append(Token(TokenType.EQUALS, "="))
+                self.add_token(TokenType.EQUALS, "=")
                 self.advance()
 
             elif self.peek() == ":":
-                self.tokens.append(Token(TokenType.COLON, ":"))
+                self.add_token(TokenType.COLON, ":")
                 self.advance()
 
             else:
                 raise RuntimeError(f"Unknown token '{self.peek()}' at pos {self.pos}")
 
-        self.tokens.append(Token(TokenType.EOF, "EOF"))
+        self.add_token(TokenType.EOF, "EOF")
         return self.tokens
+
+    def lex_number(self):
+        number = ""
+
+        while self.pos < self.length and (self.peek().isdigit() or self.peek() == "."):
+            number += self.peek()
+            self.advance()
+
+        if "." in number and number.count(".") == 1:
+            self.tokens.append(Token(TokenType.NUMBER, float(number)))
+
+        elif "." in number and number.count(".") > 1:
+            raise SyntaxError(f"Too much dots in '{number}'")
+
+        else:
+            self.add_token(TokenType.NUMBER, int(number))
+
+    def lex_id(self):
+        id = ""
+
+        while self.pos < self.length and self.peek().isalnum():
+            id += self.peek()
+            self.advance()
+
+        match id:
+            case "output":
+                self.add_token(TokenType.KEYWORD, id)
+
+            case _:
+                self.add_token(TokenType.ID, id)
+
+    def lex_string(self):
+        string = ""
+
+        self.advance()
+
+        while self.pos < self.length:
+            if self.peek() == '"':
+                self.advance()
+                self.add_token(TokenType.STRING, string)
+                break
+
+            string += self.peek()
+            self.advance()

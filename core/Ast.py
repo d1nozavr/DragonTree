@@ -6,11 +6,16 @@ Ast
 
 class NumberNode:
     def __init__(self, value):
-        try:
+        if isinstance(value, int):
             self.value = int(value)
 
-        except ValueError:
-            raise ValueError(f"Type 'int' != Type '{type(value).__name__}'")
+        elif isinstance(value, float):
+            self.value = float(value)
+
+        else:
+            raise ValueError(
+                f"Type '{type(value).__name__}' is not number ('int', 'float')"
+            )
 
     def evaluate(self):
         return self.value
@@ -21,7 +26,7 @@ class StringNode:
         self.value = value
 
     def evaluate(self):
-        return f"{self.value}"
+        return self.value
 
 
 class VariableNode:
@@ -29,7 +34,7 @@ class VariableNode:
         self.value = value
 
     def evaluate(self):
-        if isinstance(self.value, int):
+        if isinstance(self.value, (int, float)):
             return NumberNode(self.value).evaluate()
 
         return StringNode(self.value).evaluate()

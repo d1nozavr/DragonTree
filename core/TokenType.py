@@ -17,9 +17,10 @@ class TokenType(Enum):
     MINUS = "MINUS"
     MULTIPLY = "MULTIPLY"
     DIVIDE = "DIVIDE"
+    PERCENT = "PERCENT"
 
     COLON = "COLON"
 
-    OUTPUT = "OUTPUT"
+    KEYWORD = "KEYWORD"
 
     EOF = "EOF"

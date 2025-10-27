@@ -3,5 +3,5 @@ output: "Hello, World!"
 x = 2
 greeting = "Welcome, User!"
 
-output: 2 + x * 2
+output: 2 + x * 2.44
 output: greeting
