@@ -28,6 +28,7 @@
     - Some bugs.
 
 ### :alarm_clock: v0.0.2-alpha - In Development
+- Branch: improve/expressions-grammar
 - Planns:
     - New expression signs;
     - Float numbers;
@@ -77,12 +78,17 @@ output: "Hello, World!"
 x = 2
 greeting = "Welcome, User!"
 
-output: 2 + x * 2
+output: 2 + -x * 2.44 // 2
 output: greeting
+
+output: 2 ** 10
+output: 10 % 5
 ```
 
 ```ruby
 Hello, World!
-6
+-1.0
 Welcome, User!
+1024
+0
 ```

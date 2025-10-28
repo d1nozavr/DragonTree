@@ -27,4 +27,5 @@ if __name__ == "__main__":
                 interpreter.interpret(line)
 
     except Exception as e:
-        print(f"Error {type(e).__name__}: {e}")
+        print(f"Error '{type(e).__name__}':")
+        print(f"  {e}")

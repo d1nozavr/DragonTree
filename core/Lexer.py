@@ -16,6 +16,8 @@ class Lexer:
 
         self.tokens = []
 
+        self.KEYWORDS = {"output"}
+
     def add_token(self, type, value):
         self.tokens.append(Token(type, value))
 
@@ -27,7 +29,7 @@ class Lexer:
 
     def lex(self):
         while self.pos < self.length:
-            if self.peek() == " " or self.peek() == "\n":
+            if self.peek() in (" ", "\t", "\r", "\n"):
                 self.advance()
 
             elif self.peek().isdigit():
@@ -48,20 +50,38 @@ class Lexer:
                 self.advance()
 
             elif self.peek() == "*":
-                self.add_token(TokenType.MULTIPLY, "*")
                 self.advance()
+
+                if self.peek() == "*":
+                    self.advance()
+                    self.add_token(TokenType.DOUBLE_STAR, "**")
+                
+                else:
+                    self.advance()
+                    self.add_token(TokenType.STAR, "*")
 
             elif self.peek() == "/":
-                self.add_token(TokenType.DIVIDE, "/")
                 self.advance()
+
+                if self.peek() == "/":
+                    self.advance()
+                    self.add_token(TokenType.DOUBLE_SLASH, "//")
+                
+                else:
+                    self.advance()
+                    self.add_token(TokenType.SLASH, "/")
+
+            elif self.peek() == "%":
+                self.advance()
+                self.add_token(TokenType.PERCENT, "%")
 
             elif self.peek() == "=":
-                self.add_token(TokenType.EQUALS, "=")
                 self.advance()
+                self.add_token(TokenType.EQUAL, "=")
 
             elif self.peek() == ":":
-                self.add_token(TokenType.COLON, ":")
                 self.advance()
+                self.add_token(TokenType.COLON, ":")
 
             else:
                 raise RuntimeError(f"Unknown token '{self.peek()}' at pos {self.pos}")
@@ -97,7 +117,7 @@ class Lexer:
                 self.add_token(TokenType.KEYWORD, id)
 
             case _:
-                self.add_token(TokenType.ID, id)
+                self.add_token(TokenType.IDENTIFIER, id)
 
     def lex_string(self):
         string = ""

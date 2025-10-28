@@ -3,13 +3,7 @@ DragonTree
 Parser
 """
 
-from core.Ast import (
-    BinOpNode,
-    NumberNode,
-    OutputNode,
-    StringNode,
-    VariableNode,
-)
+from core.Ast import Assign, BinaryOperation, Identifier, String, Number, Output, UnaryOperation
 from core.TokenType import TokenType
 
 
@@ -30,16 +24,12 @@ class Parser:
 
     def parse(self):
         if self.peek().type != TokenType.EOF:
-            result = self.statement()
-            return result
+            return self.statement()
 
     def statement(self):
         token = self.peek()
 
-        if token.type == TokenType.ID:
-            return self.assignment()
-
-        elif token.type == TokenType.KEYWORD:
+        if token.type == TokenType.KEYWORD:
             match token.value:
                 case "output":
                     self.advance()
@@ -47,93 +37,109 @@ class Parser:
                     if self.peek().type == TokenType.COLON:
                         self.advance()
 
-                        right = self.expr()
+                        rhs = self.expr()
 
-                        return OutputNode(right).evaluate()
+                        return Output(rhs)
 
                     raise SyntaxError("Need ':' after 'output'")
 
-                case _:
-                    raise NameError(f"Unknown keyword '{token.value}'")
-
-        raise SyntaxError(f"Invalid syntax {self.peek()}")
-
-    def assignment(self):
-        name = self.peek().value
-        self.advance()
-
-        if self.peek().type == TokenType.EQUALS:
+        elif token.type == TokenType.IDENTIFIER:
+            name = token.value
             self.advance()
-            value = self.expr()
 
-            self.env[name] = value
+            if self.peek().type == TokenType.EQUAL:
+                self.advance()
 
-        else:
-            raise SyntaxError(f"Need '=' after {name} at pos {self.pos}")
+                rhs = self.expr()
+
+                return Assign(self.env, name, rhs)
+
+        raise SyntaxError(f"Invalid syntax: {self.peek()}")
 
     def expr(self):
-        left = self.term()
+        lhs = self.term()
 
         while True:
             token = self.peek()
 
             if token.type in (TokenType.PLUS, TokenType.MINUS):
-                operation = token
+                op = token.value
                 self.advance()
 
-                right = self.term()
+                rhs = self.term()
 
-                left = BinOpNode(left, operation.value, right).evaluate()
+                lhs = BinaryOperation(lhs, op, rhs)
 
                 continue
 
             break
-        return left
+
+        return lhs
 
     def term(self):
-        left = self.factor()
+        lhs = self.factor()
 
         while True:
             token = self.peek()
 
-            if token.type in (TokenType.MULTIPLY, TokenType.DIVIDE):
-                operation = token
+            if token.type in (
+                TokenType.STAR,
+                TokenType.SLASH,
+                TokenType.DOUBLE_SLASH,
+                TokenType.PERCENT,
+            ):
+                op = token.value
                 self.advance()
 
-                right = self.factor()
+                rhs = self.factor()
 
-                left = BinOpNode(left, operation.value, right).evaluate()
+                lhs = BinaryOperation(lhs, op, rhs)
 
                 continue
 
             break
-        return left
+
+        return lhs
 
     def factor(self):
         token = self.peek()
 
+        if token.type in (TokenType.PLUS, TokenType.MINUS):
+            op = token.value
+            self.advance()
+
+            expr = self.factor()
+            return UnaryOperation(op, expr)
+
+        return self.power()
+
+    def power(self):
+        lhs = self.atom()
+
+        token = self.peek()
+        if token.type == TokenType.DOUBLE_STAR:
+            op = token.value
+            self.advance()
+
+            rhs = self.factor()
+
+            lhs = BinaryOperation(lhs, op, rhs)
+
+        return lhs
+
+    def atom(self):
+        token = self.peek()
+
         if token.type == TokenType.NUMBER:
             self.advance()
-            return NumberNode(token.value).evaluate()
-
+            return Number(token.value)
+    
         elif token.type == TokenType.STRING:
             self.advance()
-            return StringNode(token.value).evaluate()
+            return String(token.value)
 
-        elif token.type == TokenType.ID:
+        elif token.type == TokenType.IDENTIFIER:
             self.advance()
-            return VariableNode(self.env[token.value]).evaluate()
-
-        elif token.type == TokenType.PLUS:
-            self.advance()
-
-            right = self.factor()
-            return BinOpNode(None, token.value, right).evaluate()
-
-        elif token.type == TokenType.MINUS:
-            self.advance()
-
-            right = self.factor()
-            return BinOpNode(None, token.value, right).evaluate()
+            return Identifier(self.env, token.value)
 
         raise RuntimeError(f"Unexpected token '{token.value}' at pos {self.pos}")
