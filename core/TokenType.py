@@ -23,4 +23,7 @@ class TokenType(Enum):
     PERCENT = "PERCENT"
     COLON = "COLON"
 
+    LPAREN = "LPAREN"
+    RPAREN = "RPAREN"
+
     EOF = "EOF"
