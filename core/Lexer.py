@@ -86,6 +86,14 @@ class Lexer:
                 self.advance()
                 self.add_token(TokenType.COLON, ":")
 
+            elif self.peek() == "(":
+                self.advance()
+                self.add_token(TokenType.LPAREN, "(")
+
+            elif self.peek() == ")":
+                self.advance()
+                self.add_token(TokenType.RPAREN, ")")
+
             else:
                 raise RuntimeError(f"Unknown token '{self.peek()}' at pos {self.pos}")
 
