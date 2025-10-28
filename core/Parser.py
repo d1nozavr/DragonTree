@@ -30,6 +30,13 @@ class Parser:
     def advance(self):
         self.pos += 1
 
+    def expect(self, type):
+        if self.peek().type == type:
+            self.advance()
+
+        else:
+            raise ValueError(f"Expected '{type}', got {self.peek().type}")
+
     def parse(self):
         if self.peek().type != TokenType.EOF:
             return self.statement()
@@ -149,5 +156,14 @@ class Parser:
         elif token.type == TokenType.IDENTIFIER:
             self.advance()
             return Identifier(self.env, token.value)
+
+        elif token.type == TokenType.LPAREN:
+            self.advance()
+
+            val = self.expr()
+
+            self.expect(TokenType.RPAREN)
+
+            return val
 
         raise RuntimeError(f"Unexpected token '{token.value}' at pos {self.pos}")
