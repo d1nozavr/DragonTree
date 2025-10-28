@@ -16,6 +16,8 @@ class Lexer:
 
         self.tokens = []
 
+        self.KEYWORDS = {"output"}
+
     def add_token(self, type, value):
         self.tokens.append(Token(type, value))
 
@@ -27,14 +29,17 @@ class Lexer:
 
     def lex(self):
         while self.pos < self.length:
-            if self.peek() == " " or self.peek() == "\n":
+            if self.peek() in (" ", "\t", "\r", "\n"):
                 self.advance()
+
+            elif self.peek() == "#":
+                self.lex_comment()
 
             elif self.peek().isdigit():
                 self.lex_number()
 
             elif self.peek().isalpha():
-                self.lex_id()
+                self.lex_identifier()
 
             elif self.peek() == '"':
                 self.lex_string()
@@ -48,26 +53,56 @@ class Lexer:
                 self.advance()
 
             elif self.peek() == "*":
-                self.add_token(TokenType.MULTIPLY, "*")
                 self.advance()
+
+                if self.peek() == "*":
+                    self.advance()
+                    self.add_token(TokenType.DOUBLE_STAR, "**")
+
+                else:
+                    self.advance()
+                    self.add_token(TokenType.STAR, "*")
 
             elif self.peek() == "/":
-                self.add_token(TokenType.DIVIDE, "/")
                 self.advance()
+
+                if self.peek() == "/":
+                    self.advance()
+                    self.add_token(TokenType.DOUBLE_SLASH, "//")
+
+                else:
+                    self.advance()
+                    self.add_token(TokenType.SLASH, "/")
+
+            elif self.peek() == "%":
+                self.advance()
+                self.add_token(TokenType.PERCENT, "%")
 
             elif self.peek() == "=":
-                self.add_token(TokenType.EQUALS, "=")
                 self.advance()
+                self.add_token(TokenType.EQUAL, "=")
 
             elif self.peek() == ":":
-                self.add_token(TokenType.COLON, ":")
                 self.advance()
+                self.add_token(TokenType.COLON, ":")
+
+            elif self.peek() == "(":
+                self.advance()
+                self.add_token(TokenType.LPAREN, "(")
+
+            elif self.peek() == ")":
+                self.advance()
+                self.add_token(TokenType.RPAREN, ")")
 
             else:
                 raise RuntimeError(f"Unknown token '{self.peek()}' at pos {self.pos}")
 
         self.add_token(TokenType.EOF, "EOF")
         return self.tokens
+
+    def lex_comment(self):
+        while self.pos < self.length:
+            self.advance()
 
     def lex_number(self):
         number = ""
@@ -85,19 +120,18 @@ class Lexer:
         else:
             self.add_token(TokenType.NUMBER, int(number))
 
-    def lex_id(self):
-        id = ""
+    def lex_identifier(self):
+        identifier = ""
 
         while self.pos < self.length and self.peek().isalnum():
-            id += self.peek()
+            identifier += self.peek()
             self.advance()
 
-        match id:
-            case "output":
-                self.add_token(TokenType.KEYWORD, id)
+        if identifier in self.KEYWORDS:
+            self.add_token(TokenType.KEYWORD, identifier)
 
-            case _:
-                self.add_token(TokenType.ID, id)
+        else:
+            self.add_token(TokenType.IDENTIFIER, identifier)
 
     def lex_string(self):
         string = ""

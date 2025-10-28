@@ -1,7 +1,13 @@
+# DragonTree
+# Example
+
 output: "Hello, World!"
 
 x = 2
 greeting = "Welcome, User!"
 
-output: 2 + x * 2.44
+output: 2 ** (x * 5) // (2 + (22 + 20))
 output: greeting
+
+output: 2 ** 10
+output: 10 % 5

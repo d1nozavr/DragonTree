@@ -14,15 +14,17 @@ class Interpreter:
 
     def interpret(self, string):
         tokens = Lexer(string).lex()
-        parser = Parser(tokens, self.env)
+        parser = Parser(tokens, self.env).parse()
 
         if self.debug:
             print("Tokens:")
             for token in tokens:
                 print(f"  - {token}")
 
-            parser.parse()
+            if parser:
+                parser.evaluate()
             print()
 
         else:
-            parser.parse()
+            if parser:
+                parser.evaluate()
