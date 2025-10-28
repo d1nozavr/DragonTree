@@ -55,7 +55,7 @@ class Lexer:
                 if self.peek() == "*":
                     self.advance()
                     self.add_token(TokenType.DOUBLE_STAR, "**")
-                
+
                 else:
                     self.advance()
                     self.add_token(TokenType.STAR, "*")
@@ -66,7 +66,7 @@ class Lexer:
                 if self.peek() == "/":
                     self.advance()
                     self.add_token(TokenType.DOUBLE_SLASH, "//")
-                
+
                 else:
                     self.advance()
                     self.add_token(TokenType.SLASH, "/")

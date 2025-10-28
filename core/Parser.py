@@ -3,7 +3,15 @@ DragonTree
 Parser
 """
 
-from core.Ast import Assign, BinaryOperation, Identifier, String, Number, Output, UnaryOperation
+from core.Ast import (
+    Assign,
+    BinaryOperation,
+    Identifier,
+    Number,
+    Output,
+    String,
+    UnaryOperation,
+)
 from core.TokenType import TokenType
 
 
@@ -41,7 +49,7 @@ class Parser:
 
                         return Output(rhs)
 
-                    raise SyntaxError("Need ':' after 'output'")
+                    raise SyntaxError(f"Need ':' after 'output' at pos {self.pos}")
 
         elif token.type == TokenType.IDENTIFIER:
             name = token.value
@@ -54,7 +62,7 @@ class Parser:
 
                 return Assign(self.env, name, rhs)
 
-        raise SyntaxError(f"Invalid syntax: {self.peek()}")
+        raise SyntaxError(f"Invalid syntax: {self.peek().value} at pos {self.pos}")
 
     def expr(self):
         lhs = self.term()
@@ -133,7 +141,7 @@ class Parser:
         if token.type == TokenType.NUMBER:
             self.advance()
             return Number(token.value)
-    
+
         elif token.type == TokenType.STRING:
             self.advance()
             return String(token.value)
