@@ -32,11 +32,14 @@ class Lexer:
             if self.peek() in (" ", "\t", "\r", "\n"):
                 self.advance()
 
+            elif self.peek() == "#":
+                self.lex_comment()
+
             elif self.peek().isdigit():
                 self.lex_number()
 
             elif self.peek().isalpha():
-                self.lex_id()
+                self.lex_identifier()
 
             elif self.peek() == '"':
                 self.lex_string()
@@ -89,6 +92,10 @@ class Lexer:
         self.add_token(TokenType.EOF, "EOF")
         return self.tokens
 
+    def lex_comment(self):
+        while self.pos < self.length:
+            self.advance()
+
     def lex_number(self):
         number = ""
 
@@ -105,19 +112,18 @@ class Lexer:
         else:
             self.add_token(TokenType.NUMBER, int(number))
 
-    def lex_id(self):
-        id = ""
+    def lex_identifier(self):
+        identifier = ""
 
         while self.pos < self.length and self.peek().isalnum():
-            id += self.peek()
+            identifier += self.peek()
             self.advance()
 
-        match id:
-            case "output":
-                self.add_token(TokenType.KEYWORD, id)
+        if identifier in self.KEYWORDS:
+            self.add_token(TokenType.KEYWORD, identifier)
 
-            case _:
-                self.add_token(TokenType.IDENTIFIER, id)
+        else:
+            self.add_token(TokenType.IDENTIFIER, identifier)
 
     def lex_string(self):
         string = ""
