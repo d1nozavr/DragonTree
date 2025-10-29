@@ -90,7 +90,7 @@ output: 10 % 5
 
 ```ruby
 Hello, World!
--1.0
+23
 Welcome, User!
 1024
 0
