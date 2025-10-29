@@ -65,9 +65,20 @@ class Parser:
             if self.peek().type == TokenType.EQUAL:
                 self.advance()
 
-                rhs = self.expr()
+                if self.peek().type == TokenType.KEYWORD:
+                    if self.peek().value == "getline":
+                        # TODO: improve conditions
+                        rhs = input()
 
-                return Assign(self.env, name, rhs)
+                        if rhs.startswith('"') and rhs.endswith('"'):
+                            return Assign(self.env, name, String(rhs[1:-1]))
+
+                        return Assign(self.env, name, Number(int(rhs)))
+                
+                else:
+                    rhs = self.expr()
+
+                    return Assign(self.env, name, rhs)
 
         raise SyntaxError(f"Invalid syntax: {self.peek().value} at pos {self.pos}")
 
