@@ -31,7 +31,10 @@ class Identifier(ASTNode):
         self.name = name
 
     def evaluate(self):
-        return self.env[self.name]
+        if self.name in self.env:
+            return self.env[self.name]
+
+        raise NameError(f"name '{self.name}' is not defined")
 
 
 class BinaryOperation(ASTNode):
