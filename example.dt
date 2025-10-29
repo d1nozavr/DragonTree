@@ -3,7 +3,7 @@
 
 output: "Hello, World!"
 
-x = 2
+x = getline
 greeting = "Welcome, User!"
 
 output: 2 ** (x * 5) // (2 + (22 + 20))
