@@ -70,15 +70,18 @@ cd DragonTree
 python3 -m run
 ```
 
-## :large_blue_diamond: Examples (v0.0.1-alpha, from branch improve/expressions-grammar)
+## :large_blue_diamond: Examples (v0.0.2-alpha)
 
 ```ruby
+# DragonTree
+# Example
+
 output: "Hello, World!"
 
 x = 2
 greeting = "Welcome, User!"
 
-output: 2 + -x * 2.44 // 2
+output: 2 ** (x * 5) // (2 + (22 + 20))
 output: greeting
 
 output: 2 ** 10
