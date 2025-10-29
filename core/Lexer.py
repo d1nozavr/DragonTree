@@ -16,7 +16,7 @@ class Lexer:
 
         self.tokens = []
 
-        self.KEYWORDS = {"output"}
+        self.KEYWORDS = {"output", "getline"}
 
     def add_token(self, type, value):
         self.tokens.append(Token(type, value))
