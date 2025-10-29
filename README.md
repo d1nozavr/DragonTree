@@ -28,17 +28,21 @@
     - Some bugs.
 
 ### :alarm_clock: v0.0.2-alpha - In Development
-- Branch: improve/expressions-grammar
 - Planns:
-    - New expression signs;
-    - Float numbers;
-    - Conditions (if, else).
+    - New expression signs; :white_check_mark:
+    - Float numbers; :white_check_mark:
+    - Keywords:
+        - if,
+        - else,
+        - getline.
+    
+    - Conditions;
 
 ## :pencil: Installation
 
 ### :unlock: Dependencies
 - **Python 3.14+** — required to run the project.  
-- **Git** — optional; used only to clone the repository.
+- **Git** (*optional*) — used only to clone the repository.
 
 ### :computer: Windows
 ```powershell
