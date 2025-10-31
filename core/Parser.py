@@ -65,15 +65,21 @@ class Parser:
             if self.peek().type == TokenType.EQUAL:
                 self.advance()
 
-                if self.peek().type == TokenType.KEYWORD:
-                    if self.peek().value == "getline":
+                token = self.peek()
+                if token.type == TokenType.KEYWORD:
+                    if token.value == "getline":
                         # TODO: improve conditions
                         rhs = input()
 
-                        if rhs.startswith('"') and rhs.endswith('"'):
-                            return Assign(self.env, name, String(rhs[1:-1]))
+                        if rhs.isdigit():
+                            rval = int(rhs)
+                            return Assign(self.env, name, Number(rval))
+                        
+                        elif "." in rhs and rhs.count(".") == 1 and rhs.replace(".", "").isdigit():
+                            rval = float(rhs)
+                            return Assign(self.env, name, Number(rval))
 
-                        return Assign(self.env, name, Number(int(rhs)))
+                        return Assign(self.env, name, String(rhs))
                 
                 else:
                     rhs = self.expr()

@@ -34,7 +34,7 @@
     - Keywords:
         - if,
         - else,
-        - getline.
+        - getline. :white_check_mark:
     
     - Conditions;
 

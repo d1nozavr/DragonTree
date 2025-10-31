@@ -10,22 +10,47 @@ from core.Interpreter import Interpreter
 if __name__ == "__main__":
     interpreter = Interpreter(debug=False)
 
-    path = input("'file'.dt → ")
-    file_path = Path(path)
+    print("DragonTree v0.0.2-alpha")
+    print()
+    print("Select interpreter mode:")
+    print("  1. Single")
+    print("  2. File")
 
-    try:
-        if not file_path.exists():
-            raise FileNotFoundError(f"File '{path}' was not found.")
+    mode = int(input("> "))
 
-        if file_path.suffix != ".dt":
-            raise ValueError(
-                f"Invalid file suffix '{file_path.suffix}'. Expected '.dt'."
-            )
+    match mode:
+        case 1:
+            while True:
+                line = input(">>> ")
 
-        with open(file_path, "r", encoding="utf-8") as file:
-            for line in file:
-                interpreter.interpret(line)
+                if line == "break":
+                    break
 
-    except Exception as e:
-        print(f"Error '{type(e).__name__}':")
-        print(f"  → {e}")
+                (Interpreter(debug=False)).interpret(line)
+
+        case 2:
+            path = input("'file'.dt → ")
+            file_path = Path(path)
+
+            try:
+                if not file_path.is_file():
+                    raise Exception(f"'{path}' is not file")
+
+                if not file_path.exists():
+                    raise FileNotFoundError(f"File '{path}' was not found.")
+
+                if file_path.suffix != ".dt":
+                    raise ValueError(
+                        f"Invalid file suffix '{file_path.suffix}'. Expected '.dt'."
+                    )
+
+                with open(file_path, "r", encoding="utf-8") as file:
+                    for line in file:
+                        (Interpreter(debug=False)).interpret(line)
+
+            except Exception as e:
+                print(f"Error '{type(e).__name__}':")
+                print(f"  → {e}")
+
+        case _:
+            raise RuntimeError("Unknown interpreter mode")
