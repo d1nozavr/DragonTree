@@ -7,8 +7,7 @@
 
 ## :smiley: Author
 
-**Trifonov Yaroslav**
-> [GitHub](https://github.com/d1nozavr)
+[**Trifonov Yaroslav**](https://github.com/d1nozavr)
 
 ## :books: About
 **:dragon: DragonTree :deciduous_tree:**
