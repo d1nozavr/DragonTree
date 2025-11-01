@@ -27,15 +27,17 @@
     - Some bugs.
 
 ### :alarm_clock: v0.0.2-alpha - In Development
+:white_check_mark: - Ready  
+:white_check_mark: :alarm_clock: - Almost ready 
 - Planns:
     - New expression signs; :white_check_mark:
     - Float numbers; :white_check_mark:
     - Keywords:
-        - if,
+        - if, :white_check_mark: :alarm_clock:
         - else,
-        - getline. :white_check_mark:
-    
-    - Conditions;
+        - getline. :white_check_mark: :alarm_clock:
+
+    - Conditions; :white_check_mark: :alarm_clock:
 
 ## :pencil: Installation
 
