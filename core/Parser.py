@@ -24,6 +24,8 @@ class Parser:
         self.pos: int = 0
         self.length: int = len(self.tokens)
 
+        self.is_if = False
+
     def peek(self):
         return self.tokens[self.pos] if self.pos < self.length else None
 
@@ -65,26 +67,9 @@ class Parser:
             if self.peek().type == TokenType.EQUAL:
                 self.advance()
 
-                token = self.peek()
-                if token.type == TokenType.KEYWORD:
-                    if token.value == "getline":
-                        # TODO: improve conditions
-                        rhs = input()
+                rhs = self.expr()
 
-                        if rhs.isdigit():
-                            rval = int(rhs)
-                            return Assign(self.env, name, Number(rval))
-                        
-                        elif "." in rhs and rhs.count(".") == 1 and rhs.replace(".", "").isdigit():
-                            rval = float(rhs)
-                            return Assign(self.env, name, Number(rval))
-
-                        return Assign(self.env, name, String(rhs))
-                
-                else:
-                    rhs = self.expr()
-
-                    return Assign(self.env, name, rhs)
+                return Assign(self.env, name, rhs)
 
         raise SyntaxError(f"Invalid syntax: {self.peek().value} at pos {self.pos}")
 

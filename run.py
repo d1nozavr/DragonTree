@@ -26,7 +26,7 @@ if __name__ == "__main__":
                 if line == "break":
                     break
 
-                (Interpreter(debug=False)).interpret(line)
+                interpreter.interpret(line)
 
         case 2:
             path = input("'file'.dt → ")
@@ -46,7 +46,7 @@ if __name__ == "__main__":
 
                 with open(file_path, "r", encoding="utf-8") as file:
                     for line in file:
-                        (Interpreter(debug=False)).interpret(line)
+                        interpreter.interpret(line)
 
             except Exception as e:
                 print(f"Error '{type(e).__name__}':")
