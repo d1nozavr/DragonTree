@@ -60,6 +60,26 @@ class Parser:
 
                     raise SyntaxError(f"Need ':' after 'output' at pos {self.pos}")
 
+                case "if":
+                    self.advance()
+
+                    if self.peek().type == TokenType.LPAREN:
+                        cond = self.expr()
+                        print(cond.evaluate())
+
+                        print(self.peek())
+
+                        # if self.peek().type == TokenType.RPAREN:
+                        #     self.advance()
+
+                        if self.peek().type == TokenType.COLON:
+                            self.advance()
+
+                            if cond:
+                                return self.parse()
+
+                    raise SyntaxError("Condition need be in ( )")
+
         elif token.type == TokenType.IDENTIFIER:
             name = token.value
             self.advance()
@@ -162,10 +182,8 @@ class Parser:
         elif token.type == TokenType.LPAREN:
             self.advance()
 
-            val = self.expr()
-
             self.expect(TokenType.RPAREN)
 
-            return val
+            return self.expr()
 
         raise RuntimeError(f"Unexpected token '{token.value}' at pos {self.pos}")
