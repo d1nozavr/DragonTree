@@ -1,7 +1,7 @@
-"""
-DragonTree
-Token
-"""
+# =================================
+#  DragonTree Programming Language
+#  File: Token.py
+# =================================
 
 
 class Token:

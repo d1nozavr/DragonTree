@@ -1,15 +1,15 @@
-"""
-DragonTree
-Ast
-"""
+# =================================
+#  DragonTree Programming Language
+#  File: Ast.py
+# =================================
 
 
 class ASTNode:
     def evaluate(self):
-        raise NotImplementedError("NotImplemented ASTNode")
+        raise NotImplementedError("NotImplement 'ASTNode'")
 
 
-class Number(ASTNode):
+class IntLiteral(ASTNode):
     def __init__(self, value):
         self.value = value
 
@@ -17,7 +17,15 @@ class Number(ASTNode):
         return self.value
 
 
-class String(ASTNode):
+class FloatLiteral(ASTNode):
+    def __init__(self, value):
+        self.value = value
+
+    def evaluate(self):
+        return self.value
+
+
+class StringLiteral(ASTNode):
     def __init__(self, value):
         self.value = value
 
@@ -34,7 +42,7 @@ class Identifier(ASTNode):
         if self.name in self.env:
             return self.env[self.name]
 
-        raise NameError(f"name '{self.name}' is not defined")
+        raise NameError(f"Name '{self.name}' is not defined")
 
 
 class BinaryOperation(ASTNode):
@@ -58,6 +66,9 @@ class BinaryOperation(ASTNode):
                 return lval * rval
 
             case "/":
+                if rval == 0:
+                    raise ZeroDivisionError("Division by zero")
+
                 return lval / rval
 
             case "//":

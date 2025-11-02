@@ -1,109 +1,84 @@
-"""
-DragonTree
-Parser
-"""
+# =================================
+#  DragonTree Programming Language
+#  File: Parser.py
+# =================================
 
 from core.Ast import (
     Assign,
     BinaryOperation,
+    FloatLiteral,
     Identifier,
-    Number,
+    IntLiteral,
     Output,
-    String,
+    StringLiteral,
     UnaryOperation,
 )
 from core.TokenType import TokenType
 
 
 class Parser:
-    def __init__(self, tokens, env):
+    def __init__(self, env, tokens):
         self.env = env
 
-        self.tokens: list = tokens
+        self.tokens = tokens
 
-        self.pos: int = 0
-        self.length: int = len(self.tokens)
-
-        self.is_if = False
-
-    def peek(self):
-        return self.tokens[self.pos] if self.pos < self.length else None
-
-    def advance(self):
-        self.pos += 1
-
-    def expect(self, type):
-        if self.peek().type == type:
-            self.advance()
-
-        else:
-            raise ValueError(f"Expected '{type}', got {self.peek().type}")
+        self.pos = 0
+        self.length = len(self.tokens)
 
     def parse(self):
-        if self.peek().type != TokenType.EOF:
-            return self.statement()
+        if self._peek().type != TokenType.EOF:
+            return self.__statement()
 
-    def statement(self):
-        token = self.peek()
+    def __statement(self):
+        token = self._peek()
 
-        if token.type == TokenType.KEYWORD:
-            match token.value:
-                case "output":
-                    self.advance()
+        match token.type:
+            case TokenType.KEYWORD:
+                match token.value:
+                    case "output":
+                        self._advance()
 
-                    if self.peek().type == TokenType.COLON:
-                        self.advance()
+                        if self._peek().type == TokenType.COLON:
+                            self._advance()
 
-                        rhs = self.expr()
+                            rhs = self.__expr()
 
-                        return Output(rhs)
+                            return Output(rhs)
 
-                    raise SyntaxError(f"Need ':' after 'output' at pos {self.pos}")
+                        raise SyntaxError(f"Need ':' after 'output' at pos {self.pos}")
 
-                case "if":
-                    self.advance()
+            case TokenType.IDENTIFIER:
+                lhs = token.value
+                self._advance()
 
-                    if self.peek().type == TokenType.LPAREN:
-                        cond = self.expr()
-                        print(cond.evaluate())
+                token = self._peek()
+                if token.type == TokenType.OPERATOR and token.value == "=":
+                    self._advance()
 
-                        print(self.peek())
+                    token = self._peek()
+                    if token.type == TokenType.KEYWORD and token.value == "getline":
+                        rhs = input()
+                        return Assign(self.env, lhs, rhs)
 
-                        # if self.peek().type == TokenType.RPAREN:
-                        #     self.advance()
+                    rhs = self.__expr()
+                    return Assign(self.env, lhs, rhs)
 
-                        if self.peek().type == TokenType.COLON:
-                            self.advance()
+                raise NameError(f"Unknown name '{lhs}'")
 
-                            if cond:
-                                return self.parse()
+            case _:
+                raise SyntaxError("Invalid syntax")
 
-                    raise SyntaxError("Condition need be in ( )")
-
-        elif token.type == TokenType.IDENTIFIER:
-            name = token.value
-            self.advance()
-
-            if self.peek().type == TokenType.EQUAL:
-                self.advance()
-
-                rhs = self.expr()
-
-                return Assign(self.env, name, rhs)
-
-        raise SyntaxError(f"Invalid syntax: {self.peek().value} at pos {self.pos}")
-
-    def expr(self):
-        lhs = self.term()
+    def __expr(self):
+        lhs = self.__term()
 
         while True:
-            token = self.peek()
+            token = self._peek()
 
-            if token.type in (TokenType.PLUS, TokenType.MINUS):
+            if token.type == TokenType.OPERATOR and token.value in ("+", "-"):
                 op = token.value
-                self.advance()
+                self._advance()
 
-                rhs = self.term()
+                rhs = self.__term()
 
                 lhs = BinaryOperation(lhs, op, rhs)
 
@@ -113,22 +88,22 @@ class Parser:
 
         return lhs
 
-    def term(self):
-        lhs = self.factor()
+    def __term(self):
+        lhs = self.__factor()
 
         while True:
-            token = self.peek()
+            token = self._peek()
 
-            if token.type in (
-                TokenType.STAR,
-                TokenType.SLASH,
-                TokenType.DOUBLE_SLASH,
-                TokenType.PERCENT,
+            if token.type == TokenType.OPERATOR and token.value in (
+                "*",
+                "/",
+                "//",
+                "%",
             ):
                 op = token.value
-                self.advance()
+                self._advance()
 
-                rhs = self.factor()
+                rhs = self.__factor()
 
                 lhs = BinaryOperation(lhs, op, rhs)
 
@@ -138,52 +113,73 @@ class Parser:
 
         return lhs
 
-    def factor(self):
-        token = self.peek()
+    def __factor(self):
+        token = self._peek()
 
-        if token.type in (TokenType.PLUS, TokenType.MINUS):
+        if token.type == TokenType.OPERATOR and token.value in ("+", "-"):
             op = token.value
-            self.advance()
+            self._advance()
 
-            expr = self.factor()
+            expr = self.__factor()
             return UnaryOperation(op, expr)
 
-        return self.power()
+        return self.__power()
 
-    def power(self):
-        lhs = self.atom()
+    def __power(self):
+        lhs = self.__atom()
 
-        token = self.peek()
-        if token.type == TokenType.DOUBLE_STAR:
-            op = token.value
-            self.advance()
+        token = self._peek()
+        if token.type == TokenType.OPERATOR and token.value == "**":
+            op = "**"
+            self._advance()
 
-            rhs = self.factor()
+            rhs = self.__factor()
 
             lhs = BinaryOperation(lhs, op, rhs)
 
         return lhs
 
-    def atom(self):
-        token = self.peek()
+    def __atom(self):
+        token = self._peek()
 
-        if token.type == TokenType.NUMBER:
-            self.advance()
-            return Number(token.value)
+        match token.type:
+            case TokenType.INT_LITERAL:
+                self._advance()
+                return IntLiteral(token.value)
 
-        elif token.type == TokenType.STRING:
-            self.advance()
-            return String(token.value)
+            case TokenType.FLOAT_LITERAL:
+                self._advance()
+                return FloatLiteral(token.value)
 
-        elif token.type == TokenType.IDENTIFIER:
-            self.advance()
-            return Identifier(self.env, token.value)
+            case TokenType.STRING_LITERAL:
+                self._advance()
+                return StringLiteral(token.value)
 
-        elif token.type == TokenType.LPAREN:
-            self.advance()
+            case TokenType.IDENTIFIER:
+                self._advance()
+                return Identifier(self.env, token.value)
 
-            self.expect(TokenType.RPAREN)
+            case TokenType.LPAREN:
+                self._advance()
 
-            return self.expr()
+                rhs = self.__expr()
 
-        raise RuntimeError(f"Unexpected token '{token.value}' at pos {self.pos}")
+                self._expect(TokenType.RPAREN)
+
+                return rhs
+
+            case _:
+                raise RuntimeError(f"Unexpected token '{token.value}', pos {self.pos}")
+
+    def _peek(self):
+        return self.tokens[self.pos] if self.pos < self.length else None
+
+    def _advance(self):
+        self.pos += 1
+
+    def _expect(self, type):
+        if self._peek().type == type:
+            self._advance()
+
+        else:
+            raise ValueError(f"Expected '{type}', got '{self._peek().type}'")

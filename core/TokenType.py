@@ -1,26 +1,25 @@
-"""
-DragonTree
-TokenType
-"""
+# =================================
+#  DragonTree Programming Language
+#  File: TokenType.py
+# =================================
 
 from enum import Enum
 
 
 class TokenType(Enum):
-    NUMBER = "NUMBER"
-    STRING = "STRING"
+    INT_LITERAL = "INT_LITERAL"
+    FLOAT_LITERAL = "FLOAT_LITERAL"
+    STRING_LITERAL = "STRING_LITERAL"
+
+    OPERATOR = "OPERATOR"
+
     IDENTIFIER = "IDENTIFIER"
+
     KEYWORD = "KEYWORD"
 
-    EQUAL = "EQUAL"
+    NUMBER = "NUMBER"
+    STRING = "STRING"
 
-    PLUS = "PLUS"
-    MINUS = "MINUS"
-    STAR = "STAR"
-    DOUBLE_STAR = "DOUBLE_STAR"
-    SLASH = "SLASH"
-    DOUBLE_SLASH = "DOUBLE_SLASH"
-    PERCENT = "PERCENT"
     COLON = "COLON"
 
     LPAREN = "LPAREN"

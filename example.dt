@@ -3,11 +3,10 @@
 
 output: "Hello, World!"
 
-x = getline
+x = 3.14
 greeting = "Welcome, User!"
 
 output: 2 ** (x * 5) // (2 + (22 + 20))
-output: greeting
 
 output: 2 ** 10
 output: 10 % 5

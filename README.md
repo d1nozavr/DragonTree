@@ -32,12 +32,12 @@
 - Planns:
     - New expression signs; :white_check_mark:
     - Float numbers; :white_check_mark:
-    - Keywords:
-        - if, :white_check_mark: :alarm_clock:
-        - else,
-        - getline. :white_check_mark: :alarm_clock:
+    - Keywords: :white_check_mark: :alarm_clock:
+        - if, :alarm_clock:
+        - else, :alarm_clock:
+        - getline. :white_check_mark:
 
-    - Conditions; :white_check_mark: :alarm_clock:
+    - Conditions; :alarm_clock:
 
 ## :pencil: Installation
 
@@ -75,7 +75,7 @@ cd DragonTree
 python3 -m run
 ```
 
-## :large_blue_diamond: Examples (v0.0.2-alpha)
+## :large_blue_diamond: Examples. DragonTree v0.0.2-alpha
 
 ```ruby
 # DragonTree
@@ -83,11 +83,10 @@ python3 -m run
 
 output: "Hello, World!"
 
-x = 2
+x = 3.14
 greeting = "Welcome, User!"
 
 output: 2 ** (x * 5) // (2 + (22 + 20))
-output: greeting
 
 output: 2 ** 10
 output: 10 % 5
@@ -95,8 +94,7 @@ output: 10 % 5
 
 ```ruby
 Hello, World!
-23
-Welcome, User!
+1209.0
 1024
 0
 ```

@@ -1,55 +1,110 @@
-"""
-DragonTree
-Run
-"""
+# =================================
+#  DragonTree Programming Language
+#  File: run.py
+# =================================
 
+from os import name, system
 from pathlib import Path
 
 from core.Interpreter import Interpreter
+
+
+def clear_console():
+    if name == "nt":
+        system("cls")
+
+    else:
+        system("clear")
+
 
 if __name__ == "__main__":
     interpreter = Interpreter(debug=False)
 
     print("DragonTree v0.0.2-alpha")
     print()
-    print("Select interpreter mode:")
-    print("  1. Single")
-    print("  2. File")
+    print("Select Interpreter Mode:")
+    print("  1. Interactive Mode (enter code line by line)")
+    print("  2. File Mode (run code from a file)")
+    print()
 
     mode = int(input("> "))
 
+    clear_console()
+
     match mode:
         case 1:
+            print("DragonTree v0.0.2-alpha")
+            print()
+
             while True:
                 line = input(">>> ")
 
-                if line == "break":
+                if line == "quit" or line == "exit":
                     break
 
-                interpreter.interpret(line)
+                elif line == "clear":
+                    clear_console()
+
+                    print("DragonTree v0.0.2-alpha")
+                    print()
+
+                else:
+                    try:
+                        interpreter.interpret(line)
+
+                    except Exception as e:
+                        print(f"Error '{type(e).__name__}':")
+                        print(f"  ↓ File '-', line {interpreter.line}")
+                        print()
+                        print(f"  ↓ {interpreter.string.strip()}")
+                        print(f"  ↓ {'↑' * len(interpreter.string.strip())}")
+                        print()
+                        print(f"  → {e}")
 
         case 2:
-            path = input("'file'.dt → ")
-            file_path = Path(path)
+            print("DragonTree v0.0.2-alpha")
+            print()
+
+            file_path = Path(input("'file'.dt → "))
+
+            clear_console()
+
+            print("DragonTree v0.0.2-alpha")
+            print()
 
             try:
                 if not file_path.is_file():
-                    raise Exception(f"'{path}' is not file")
+                    raise FileExistsError(
+                        f"'{file_path}' is not a file or does not exist"
+                    )
 
                 if not file_path.exists():
-                    raise FileNotFoundError(f"File '{path}' was not found.")
+                    raise FileNotFoundError(f"File '{file_path}' was not found")
 
                 if file_path.suffix != ".dt":
                     raise ValueError(
-                        f"Invalid file suffix '{file_path.suffix}'. Expected '.dt'."
+                        f"Invalid file suffix '{file_path.suffix}', expected '.dt'"
                     )
 
                 with open(file_path, "r", encoding="utf-8") as file:
                     for line in file:
                         interpreter.interpret(line)
 
+            except FileExistsError as fer:
+                print("Error 'FileExistsError':")
+                print(f"  → {fer}")
+
+            except FileNotFoundError as fnfe:
+                print("Error 'FileNotFoundError':")
+                print(f"  → {fnfe}")
+
             except Exception as e:
                 print(f"Error '{type(e).__name__}':")
+                print(f"  ↓ File '{file_path}', line {interpreter.line}")
+                print()
+                print(f"  ↓ {interpreter.string.strip()}")
+                print(f"  ↓ {'↑' * len(interpreter.string.strip())}")
+                print()
                 print(f"  → {e}")
 
         case _:
