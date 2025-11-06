@@ -2,12 +2,10 @@
 ![Python](https://img.shields.io/badge/python-3.14%2B-blue?style=for-the-badge&logo=python&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
 
+### :smiley: Author: [**Trifonov Yaroslav**](https://github.com/d1nozavr)
+
 > [!WARNING]
 > **Status**: Work in Progress.
-
-## :smiley: Author
-
-[**Trifonov Yaroslav**](https://github.com/d1nozavr)
 
 ## :books: About
 **:dragon: DragonTree :deciduous_tree:**
@@ -26,43 +24,38 @@
 - Fixed:
     - Some bugs.
 
-### :alarm_clock: v0.0.2-alpha - In Development
-:white_check_mark: - Ready  
-:white_check_mark: :alarm_clock: - Almost ready 
+### :alarm_clock: v0.0.2-alpha - In Development 
 - Planns:
     - New expression signs; :white_check_mark:
     - Float numbers; :white_check_mark:
-    - Keywords: :white_check_mark: :alarm_clock:
-        - if, :alarm_clock:
-        - else, :alarm_clock:
+    - Keywords:
+        - if,
+        - else,
         - getline. :white_check_mark:
 
-    - Conditions; :alarm_clock:
+    - Conditions.
 
 ## :pencil: Installation
 
-### :unlock: Dependencies
-- **Python 3.14+** — required to run the project.  
-- **Git** (*optional*) — used only to clone the repository.
+### :unlock: Requirements
+- **Python 3.14+** — required to run the project.
 
-### :computer: Windows
-```powershell
-:: Clone the repository (optional)
-git clone https://github.com/d1nozavr/DragonTree.git
+### :penguin: Linux/Mac OS :apple:
+```shell
+git clone --depth 1 https://github.com/d1nozavr/DragonTree.git
 cd DragonTree
+rm -rf .git
 
-:: Run the project
-python -m run
+make
 ```
 
-### :penguin: Linux / :apple: MacOS
-```bash
-# Clone the repository (optional)
-git clone https://github.com/d1nozavr/DragonTree.git
+### :computer: Windows (Powershell)
+```pwsh
+git clone --depth 1 https://github.com/d1nozavr/DragonTree.git
 cd DragonTree
+Remove-Item .git -Recurse -Force
 
-# Run the project
-python3 -m run
+make
 ```
 
 ## :large_blue_diamond: Examples. DragonTree v0.0.2-alpha
