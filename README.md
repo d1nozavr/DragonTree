@@ -55,17 +55,7 @@ cd DragonTree
 python -m run
 ```
 
-### :penguin: Linux
-```bash
-# Clone the repository (optional)
-git clone https://github.com/d1nozavr/DragonTree.git
-cd DragonTree
-
-# Run the project
-python3 -m run
-```
-
-### :apple: macOS
+### :penguin: Linux / :apple: MacOS
 ```bash
 # Clone the repository (optional)
 git clone https://github.com/d1nozavr/DragonTree.git
