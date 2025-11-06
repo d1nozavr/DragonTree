@@ -29,11 +29,11 @@
     - New expression signs; :white_check_mark:
     - Float numbers; :white_check_mark:
     - Keywords:
-        - if,
+        - if, :white_check_mark:
         - else,
         - getline. :white_check_mark:
 
-    - Conditions.
+    - Conditions. :white_check_mark:
 
 ## :pencil: Installation
 
