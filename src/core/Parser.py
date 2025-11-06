@@ -47,6 +47,22 @@ class Parser:
 
                         raise SyntaxError(f"Need ':' after 'output' at pos {self.pos}")
 
+                    case "if":
+                        self._advance()
+
+                        self._expect(TokenType.LPAREN)
+                        lhs = self.__expr().evaluate()
+                        self._expect(TokenType.RPAREN)
+
+                        if lhs:
+                            if self._peek().type == TokenType.COLON:
+                                self._advance()
+                                return self.parse()
+
+                            raise SyntaxError(
+                                f"Need ':' after 'if (condition)' at pos {self.pos}"
+                            )
+
             case TokenType.IDENTIFIER:
                 lhs = token.value
                 self._advance()
@@ -74,7 +90,16 @@ class Parser:
         while True:
             token = self._peek()
 
-            if token.type == TokenType.OPERATOR and token.value in ("+", "-"):
+            if token.type == TokenType.OPERATOR and token.value in (
+                "+",
+                "-",
+                "==",
+                "!=",
+                "<",
+                ">",
+                "<=",
+                ">=",
+            ):
                 op = token.value
                 self._advance()
 
