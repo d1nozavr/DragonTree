@@ -17,8 +17,24 @@ class Lexer:
 
         self.tokens = []
 
-        self.KEYWORDS = {"output", "getline"}
-        self.OPERATORS = {"+", "-", "*", "**", "/", "//", "%", "="}
+        self.KEYWORDS = {"output", "getline", "if"}
+        self.OPERATORS = {
+            "+",
+            "-",
+            "*",
+            "**",
+            "/",
+            "//",
+            "%",
+            "=",
+            "!",
+            "==",
+            "!=",
+            "<",
+            ">",
+            "<=",
+            ">=",
+        }
         self.IGNORED = {" ", "\t", "\r", "\n"}
 
     def lex(self):
@@ -114,11 +130,35 @@ class Lexer:
             if self._peek() == "*":
                 op = "**"
 
-        elif self._peek() == "/":
+        elif op == "/":
             self._advance()
 
             if self._peek() == "/":
                 op = "//"
+
+        elif op == "=":
+            self._advance()
+
+            if self._peek() == "=":
+                op = "=="
+
+        elif op == "!":
+            self._advance()
+
+            if self._peek() == "=":
+                op = "!="
+
+        elif op == "<":
+            self._advance()
+
+            if self._peek() == "=":
+                op = "<="
+
+        elif op == ">":
+            self._advance()
+
+            if self._peek() == "=":
+                op = ">="
 
         self._add_token(TokenType.OPERATOR, op)
         self._advance()
