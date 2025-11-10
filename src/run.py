@@ -5,10 +5,10 @@
 
 from os import name, system
 from pathlib import Path
+from sys import exit
 
 from core.Interpreter import Interpreter
 
-from sys import exit
 
 def clear_console():
     if name == "nt":
@@ -66,7 +66,7 @@ if __name__ == "__main__":
             print("DragonTree v0.0.2-alpha")
             print()
 
-            file_path = Path(input("'file'.dt → "))
+            file_path = Path(input("Path to file → "))
 
             clear_console()
 
@@ -87,9 +87,10 @@ if __name__ == "__main__":
                         f"Invalid file suffix '{file_path.suffix}', expected '.dt'"
                     )
 
-                with open(file_path, "r", encoding="utf-8") as file:
-                    for line in file:
-                        interpreter.interpret(line)
+                lines = file_path.read_text(encoding="utf-8").splitlines()
+
+                for line in lines:
+                    interpreter.interpret(line)
 
             except FileExistsError as fer:
                 print("Error 'FileExistsError':")

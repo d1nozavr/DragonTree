@@ -17,15 +17,22 @@ from core.TokenType import TokenType
 
 
 class Parser:
-    def __init__(self, env, tokens):
+    def __init__(self, env):
         self.env = env
 
-        self.tokens = tokens
+        self.tokens = None
 
         self.pos = 0
-        self.length = len(self.tokens)
+        self.length = None
 
-    def parse(self):
+        self.if_statement = False
+        self.if_statement_result = False
+
+    def parse(self, tokens):
+        self.tokens = tokens
+        self.length = len(tokens)
+        self.pos = 0
+
         if self._peek().type != TokenType.EOF:
             return self.__statement()
 
@@ -54,14 +61,44 @@ class Parser:
                         lhs = self.__expr().evaluate()
                         self._expect(TokenType.RPAREN)
 
-                        if lhs:
-                            if self._peek().type == TokenType.COLON:
-                                self._advance()
-                                return self.parse()
+                        if self._peek().type == TokenType.LBRACE:
+                            self._advance()
 
+                            rhs = self.__statement()
+
+                            self._expect(TokenType.RBRACE)
+
+                            self.if_statement = True
+                            if lhs:
+                                self.if_statement_result = True
+                                return rhs.evaluate()
+
+                            else:
+                                self.if_statement_result = False
+                                return None
+
+                        else:
                             raise SyntaxError(
-                                f"Need ':' after 'if (condition)' at pos {self.pos}"
+                                "Statement must be in '{}' at pos " + str(self.pos)
                             )
+
+                    case "else":
+                        if self.if_statement and not self.if_statement_result:
+                            self._advance()
+
+                            if self._peek().type == TokenType.LBRACE:
+                                self._advance()
+
+                                rhs = self.__statement()
+
+                                self._expect(TokenType.RBRACE)
+
+                                return rhs.evaluate()
+
+                            else:
+                                raise SyntaxError(
+                                    "Statement must be in '{}' at pos " + str(self.pos)
+                                )
 
             case TokenType.IDENTIFIER:
                 lhs = token.value
@@ -197,7 +234,7 @@ class Parser:
                 raise RuntimeError(f"Unexpected token '{token.value}', pos {self.pos}")
 
     def _peek(self):
-        return self.tokens[self.pos] if self.pos < self.length else None
+        return self.tokens[self.pos]  # if self.pos < self.length else None
 
     def _advance(self):
         self.pos += 1

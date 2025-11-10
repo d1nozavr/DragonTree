@@ -9,7 +9,7 @@
 
 ## :books: About
 **:dragon: DragonTree :deciduous_tree:**
-> The programming language written in Python 3.14.  
+> The programming language written in Python 3.14.
 > The language was created for data science, automation with scripts.
 
 ## :round_pushpin: Versions
@@ -24,16 +24,18 @@
 - Fixed:
     - Some bugs.
 
-### :alarm_clock: v0.0.2-alpha - In Development 
+### :alarm_clock: v0.0.2-alpha - In Development
 - Planns:
     - New expression signs; :white_check_mark:
     - Float numbers; :white_check_mark:
-    - Keywords:
+    - Keywords: :white_check_mark:
         - if, :white_check_mark:
-        - else,
+        - else, :white_check_mark:
         - getline. :white_check_mark:
 
     - Conditions. :white_check_mark:
+
+    - Minor changes
 
 ## :pencil: Installation
 
@@ -60,6 +62,7 @@ make
 
 ## :large_blue_diamond: Examples. DragonTree v0.0.2-alpha
 
+### Example 1
 ```ruby
 # DragonTree
 # Example
@@ -69,7 +72,8 @@ output: "Hello, World!"
 x = 3.14
 greeting = "Welcome, User!"
 
-if (x == 3.14): output: 2 ** (x * 5) // (2 + (22 + 20))
+if (x == 3.14) { output: 2 ** (x * 5) // (2 + (22 + 20)) }
+else { output: "x is not equal to 3.14" }
 
 output: 2 ** 10
 output: 10 % 5
@@ -78,6 +82,30 @@ output: 10 % 5
 ```ruby
 Hello, World!
 1209.0
+1024
+0
+```
+
+### Example 2
+```ruby
+# DragonTree
+# Example
+
+output: "Hello, World!"
+
+x = 3.12
+greeting = "Welcome, User!"
+
+if (x == 3.14) { output: 2 ** (x * 5) // (2 + (22 + 20)) }
+else { output: "x is not equal to 3.14" }
+
+output: 2 ** 10
+output: 10 % 5
+```
+
+```ruby
+Hello, World!
+x is not equal to 3.14
 1024
 0
 ```

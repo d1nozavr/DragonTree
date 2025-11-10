@@ -9,32 +9,39 @@ from core.Parser import Parser
 
 class Interpreter:
     def __init__(self, debug=False):
-        self.env: dict = {}
-        self.debug: bool = debug
+        self.debug = debug
+
+        self.env = {}
 
         self.line = 1
         self.string = None
+
+        self.parser = Parser(self.env)
 
     def interpret(self, string):
         self.string = string
 
         tokens = Lexer(string).lex()
-        parser = Parser(self.env, tokens).parse()
 
         if self.debug:
             print("Tokens:")
+
             for token in tokens:
                 print(f"  - {token}")
 
-            if parser:
-                parser.evaluate()
+            ast = self.parser.parse(tokens)
+
+            if ast:
+                ast.evaluate()
 
             self.line += 1
 
             print()
 
         else:
-            if parser:
-                parser.evaluate()
+            ast = self.parser.parse(tokens)
+
+            if ast:
+                ast.evaluate()
 
             self.line += 1

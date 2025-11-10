@@ -24,5 +24,7 @@ class TokenType(Enum):
 
     LPAREN = "LPAREN"
     RPAREN = "RPAREN"
+    LBRACE = "LBRACE"
+    RBRACE = "RBRACE"
 
     EOF = "EOF"

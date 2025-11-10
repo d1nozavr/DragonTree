@@ -140,12 +140,3 @@ class Output(ASTNode):
     def evaluate(self):
         val = self.expr.evaluate()
         print(f"{val}")
-
-class If(ASTNode):
-    def __init__(self, lhs, rhs):
-        self.lhs = lhs
-        self.rhs = rhs
-    
-    def evaluate(self):
-        if self.lhs:
-            self.rhs()

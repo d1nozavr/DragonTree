@@ -17,7 +17,7 @@ class Lexer:
 
         self.tokens = []
 
-        self.KEYWORDS = {"output", "getline", "if"}
+        self.KEYWORDS = {"output", "getline", "if", "else"}
         self.OPERATORS = {
             "+",
             "-",
@@ -68,6 +68,14 @@ class Lexer:
 
             elif self._peek() == ")":
                 self._add_token(TokenType.RPAREN, ")")
+                self._advance()
+
+            elif self._peek() == "{":
+                self._add_token(TokenType.LBRACE, "{")
+                self._advance()
+
+            elif self._peek() == "}":
+                self._add_token(TokenType.RBRACE, "}")
                 self._advance()
 
             else:
@@ -164,7 +172,7 @@ class Lexer:
         self._advance()
 
     def _peek(self):
-        return self.string[self.pos] if self.pos < self.length else None
+        return self.string[self.pos]  # if self.pos < self.length else None
 
     def _advance(self):
         self.pos += 1
