@@ -121,7 +121,7 @@ class UnaryOperation(ASTNode):
                 raise ValueError(f"Unknown unary operator '{self.op}'")
 
 
-class Assign(ASTNode):
+class AssignmentStatement(ASTNode):
     def __init__(self, env, name, expr):
         self.env = env
 
@@ -133,7 +133,7 @@ class Assign(ASTNode):
         self.env[self.name] = val
 
 
-class Output(ASTNode):
+class OutputStatement(ASTNode):
     def __init__(self, expr):
         self.expr = expr
 

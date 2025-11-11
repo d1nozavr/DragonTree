@@ -14,28 +14,25 @@
 
 ## :round_pushpin: Versions
 
-### :white_check_mark: v0.0.1-alpha - Stable
+### :white_check_mark: v0.0.2-alpha - Stable
 - Added:
-    - Numbers & Expressions;
-    - Strings;
-    - Variables;
-    - Output.
+    - New expression signs;
+    - Float numbers;
+    - Keywords:
+        - if,
+        - else,
+        - getline.
+    - Conditions;
 
-- Fixed:
-    - Some bugs.
+- Minor changes:
+  - Rename some AST classes.
 
-### :alarm_clock: v0.0.2-alpha - In Development
+### :alarm_clock: v0.0.3-alpha - In Development
 - Planns:
-    - New expression signs; :white_check_mark:
-    - Float numbers; :white_check_mark:
-    - Keywords: :white_check_mark:
-        - if, :white_check_mark:
-        - else, :white_check_mark:
-        - getline. :white_check_mark:
-
-    - Conditions. :white_check_mark:
-
-    - Minor changes
+    - Keywords:
+        - loop,
+        - for,
+        - while.
 
 ## :pencil: Installation
 

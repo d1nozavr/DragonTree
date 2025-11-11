@@ -4,12 +4,12 @@
 # =================================
 
 from core.Ast import (
-    Assign,
+    AssignmentStatement,
     BinaryOperation,
     FloatLiteral,
     Identifier,
     IntLiteral,
-    Output,
+    OutputStatement,
     StringLiteral,
     UnaryOperation,
 )
@@ -50,7 +50,7 @@ class Parser:
 
                             rhs = self.__expr()
 
-                            return Output(rhs)
+                            return OutputStatement(rhs)
 
                         raise SyntaxError(f"Need ':' after 'output' at pos {self.pos}")
 
@@ -75,7 +75,7 @@ class Parser:
 
                             else:
                                 self.if_statement_result = False
-                                return None
+                                # return None
 
                         else:
                             raise SyntaxError(
@@ -111,10 +111,10 @@ class Parser:
                     token = self._peek()
                     if token.type == TokenType.KEYWORD and token.value == "getline":
                         rhs = input()
-                        return Assign(self.env, lhs, rhs)
+                        return AssignmentStatement(self.env, lhs, rhs)
 
                     rhs = self.__expr()
-                    return Assign(self.env, lhs, rhs)
+                    return AssignmentStatement(self.env, lhs, rhs)
 
                 raise NameError(f"Unknown name '{lhs}'")
 

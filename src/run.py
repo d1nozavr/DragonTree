@@ -66,7 +66,7 @@ if __name__ == "__main__":
             print("DragonTree v0.0.2-alpha")
             print()
 
-            file_path = Path(input("Path to file → "))
+            file_path = Path(input("Path to 'file'.dt → "))
 
             clear_console()
 
