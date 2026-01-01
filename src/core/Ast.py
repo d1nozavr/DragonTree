@@ -1,6 +1,6 @@
 # =================================
 #  DragonTree Programming Language
-#  File: Ast.py
+#  Ast
 # =================================
 
 

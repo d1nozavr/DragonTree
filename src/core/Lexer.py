@@ -1,6 +1,6 @@
 # =================================
 #  DragonTree Programming Language
-#  File: Lexer.py
+#  Lexer
 # =================================
 
 

@@ -1,6 +1,6 @@
 # =================================
 #  DragonTree Programming Language
-#  File: Parser.py
+#  Parser
 # =================================
 
 from core.Ast import (

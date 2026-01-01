@@ -1,6 +1,6 @@
 # =================================
 #  DragonTree Programming Language
-#  File: Interpreter.py
+#  Interpreter
 # =================================
 
 from core.Lexer import Lexer

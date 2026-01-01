@@ -1,6 +1,6 @@
 # =================================
 #  DragonTree Programming Language
-#  File: Token.py
+#  Token
 # =================================
 
 

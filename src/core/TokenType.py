@@ -1,6 +1,6 @@
 # =================================
 #  DragonTree Programming Language
-#  File: TokenType.py
+#  TokenType
 # =================================
 
 from enum import Enum

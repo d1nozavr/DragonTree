@@ -1,6 +1,6 @@
 # =================================
 #  DragonTree Programming Language
-#  File: run.py
+#  Run
 # =================================
 
 from os import name, system
