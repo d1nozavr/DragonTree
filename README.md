@@ -28,29 +28,26 @@
     - getline.
   - Conditions;
 
-- Minor changes:
-  - Rename some AST classes.
-
 ### :alarm_clock: v0.0.3-alpha - In Development
 
 - Plans:
-  - Rewrite interpreter for static typing:
-    - Data types:
-      - int,
-      - float,
-      - str,
-      - bool,
-      - null (none).
+  - Code refactoring;
 
-  - Add block statements.
-
-  - Memory:
-    - Add memory management (deleting variables).
+  - Data types:
+    - int,
+    - float,
+    - double,
+    - string,
+    - bool,
+    - null/none.
+  
+  - Add block statements (prototype);
+  - Add deleting of variables (memory management prototype);
 
   - Loops:
-    - ? loop (like 'while true'),
     - for,
-    - while.
+    - while,
+    - ? loop ?.
 
 ## :pencil: Installation
 
