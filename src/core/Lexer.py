@@ -35,15 +35,16 @@ class Lexer:
             "<=",
             ">=",
         }
-        self.IGNORED = {" ", "\t", "\r", "\n"}
+        self.IGNORED = {" ", "#\t", "\r", "\n"}
 
-    def lex(self):
+    def tokenize(self):
         while self.pos < self.length:
-            if self._peek() in self.IGNORED:
-                self._advance()
+            if self._peek() in self.IGNORED:  # :FIXME:
+                if self._peek() == "#":
+                    while self.pos < self.length:
+                        self._advance()
 
-            elif self._peek() == "#":
-                while self.pos < self.length:
+                else:
                     self._advance()
 
             elif self._peek().isdigit():
@@ -94,13 +95,13 @@ class Lexer:
             self._advance()
 
         if "." in number_literal and number_literal.count(".") == 1:
-            self._add_token(TokenType.FLOAT_LITERAL, float(number_literal))
+            self._add_token(TokenType.LITERAL, float(number_literal))
 
         elif "." in number_literal and number_literal.count(".") > 1:
             raise SyntaxError(f"Too much '.' in '{number_literal}'")
 
         else:
-            self._add_token(TokenType.INT_LITERAL, int(number_literal))
+            self._add_token(TokenType.LITERAL, int(number_literal))
 
     def __lex_string_literal(self):
         string_literal = ""
@@ -110,7 +111,7 @@ class Lexer:
         while self.pos < self.length:
             if self._peek() == '"':
                 self._advance()
-                self._add_token(TokenType.STRING_LITERAL, string_literal)
+                self._add_token(TokenType.LITERAL, string_literal)
                 break
 
             string_literal += self._peek()
@@ -172,7 +173,7 @@ class Lexer:
         self._advance()
 
     def _peek(self):
-        return self.string[self.pos]  # if self.pos < self.length else None
+        return self.string[self.pos]
 
     def _advance(self):
         self.pos += 1

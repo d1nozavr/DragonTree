@@ -42,7 +42,6 @@
     - null/none.
   
   - Add block statements (prototype);
-  - Add deleting of variables (memory management prototype);
 
   - Loops:
     - for,

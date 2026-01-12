@@ -21,7 +21,7 @@ class Interpreter:
     def interpret(self, string):
         self.string = string
 
-        tokens = Lexer(string).lex()
+        tokens = Lexer(string).tokenize()
 
         if self.debug:
             print("Tokens:")

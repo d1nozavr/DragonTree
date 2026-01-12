@@ -3,17 +3,14 @@
 #  Parser
 # =================================
 
-from core.Ast import (
-    AssignmentStatement,
-    BinaryOperation,
-    FloatLiteral,
-    Identifier,
-    IntLiteral,
-    OutputStatement,
-    StringLiteral,
-    UnaryOperation,
-)
 from core.TokenType import TokenType
+
+from core.AST.Assignment import Assignment
+from core.AST.BinaryOp import BinaryOp
+from core.AST.Identifier import Identifier
+from core.AST.Literal import Literal
+from core.AST.Output import Output
+from core.AST.UnaryOp import UnaryOp
 
 
 class Parser:
@@ -50,7 +47,7 @@ class Parser:
 
                             rhs = self.__expr()
 
-                            return OutputStatement(rhs)
+                            return Output(rhs)
 
                         raise SyntaxError(f"Need ':' after 'output' at pos {self.pos}")
 
@@ -111,10 +108,10 @@ class Parser:
                     token = self._peek()
                     if token.type == TokenType.KEYWORD and token.value == "getline":
                         rhs = input()
-                        return AssignmentStatement(self.env, lhs, rhs)
+                        return Assignment(self.env, lhs, rhs)
 
                     rhs = self.__expr()
-                    return AssignmentStatement(self.env, lhs, rhs)
+                    return Assignment(self.env, lhs, rhs)
 
                 raise NameError(f"Unknown name '{lhs}'")
 
@@ -142,7 +139,7 @@ class Parser:
 
                 rhs = self.__term()
 
-                lhs = BinaryOperation(lhs, op, rhs)
+                lhs = BinaryOp(lhs, op, rhs)
 
                 continue
 
@@ -167,7 +164,7 @@ class Parser:
 
                 rhs = self.__factor()
 
-                lhs = BinaryOperation(lhs, op, rhs)
+                lhs = BinaryOp(lhs, op, rhs)
 
                 continue
 
@@ -183,7 +180,7 @@ class Parser:
             self._advance()
 
             expr = self.__factor()
-            return UnaryOperation(op, expr)
+            return UnaryOp(op, expr)
 
         return self.__power()
 
@@ -197,7 +194,7 @@ class Parser:
 
             rhs = self.__factor()
 
-            lhs = BinaryOperation(lhs, op, rhs)
+            lhs = BinaryOp(lhs, op, rhs)
 
         return lhs
 
@@ -205,17 +202,9 @@ class Parser:
         token = self._peek()
 
         match token.type:
-            case TokenType.INT_LITERAL:
+            case TokenType.LITERAL:
                 self._advance()
-                return IntLiteral(token.value)
-
-            case TokenType.FLOAT_LITERAL:
-                self._advance()
-                return FloatLiteral(token.value)
-
-            case TokenType.STRING_LITERAL:
-                self._advance()
-                return StringLiteral(token.value)
+                return Literal(token.value)
 
             case TokenType.IDENTIFIER:
                 self._advance()
@@ -234,7 +223,7 @@ class Parser:
                 raise RuntimeError(f"Unexpected token '{token.value}', pos {self.pos}")
 
     def _peek(self):
-        return self.tokens[self.pos]  # if self.pos < self.length else None
+        return self.tokens[self.pos]
 
     def _advance(self):
         self.pos += 1

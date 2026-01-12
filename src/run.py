@@ -3,7 +3,7 @@
 #  Run
 # =================================
 
-from os import name, system
+
 from pathlib import Path
 from sys import exit
 
@@ -11,17 +11,13 @@ from core.Interpreter import Interpreter
 
 
 def clear_console():
-    if name == "nt":
-        system("cls")
-
-    else:
-        system("clear")
+    print("\033c\033[3J", end="")
 
 
 if __name__ == "__main__":
     interpreter = Interpreter(debug=False)
 
-    print("DragonTree v0.0.2-alpha")
+    print("DragonTree Runner v0.0.2-alpha")
     print()
     print("Select Interpreter Mode:")
     print("  1. Interactive Mode (enter code line by line)")
