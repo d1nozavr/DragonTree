@@ -1,32 +1,49 @@
 # :dragon: DragonTree :deciduous_tree:
 
-![Python](https://img.shields.io/badge/python-3.14%2B-blue?style=for-the-badge&logo=python&logoColor=white)
-![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
-
-### :smiley: Author: [**Trifonov Yaroslav**](https://github.com/d1nozavr)
+### :smiley: Author: [**d1nozavr**](https://github.com/d1nozavr)
 
 > [!WARNING]
-> **Status**: Work in Progress.
+> **Status**: Work In Progress.
 
-## :books: About
 
-**:dragon: DragonTree :deciduous_tree:**
+## :sparkles: Features
 
-> The programming language written in Python 3.14.
-> The language was created for data science, automation with scripts.
+- a
+- b
+- c
 
-## :round_pushpin: Versions
+## :star: Requirements
 
-### :white_check_mark: v0.0.2-alpha - Stable
+- Python >= **3.14** (needs to be run)
+- GNU make **_(optional)_**
 
-- Added:
-  - New expression signs;
-  - Float numbers;
-  - Keywords:
-    - if,
-    - else,
-    - getline.
-  - Conditions;
+## :rocket: Getting started
+
+<details><summary>Install the <a href="https://github.com/d1nozavr/DragonTree">DragonTree</a></summary>
+
+- Clone the project
+
+  ```sh
+  git clone --depth 1 https://github.com/d1nozavr/DragonTree.git
+
+  ```
+- Change directory
+
+  cd DragonTree
+
+- Remove the `.git` folder
+
+  ```sh
+  rm -rf .git
+  ```
+
+- Start DragonTree!
+
+  ```sh
+  make
+  ```
+
+</details>
 
 ### :alarm_clock: v0.0.3-alpha - In Development
 
@@ -48,33 +65,7 @@
     - while,
     - ? loop ?.
 
-## :pencil: Installation
-
-### :unlock: Requirements
-
-- **Python 3.14+** — required to run the project.
-
-### :penguin: Linux/Mac OS :apple:
-
-```shell
-git clone --depth 1 https://github.com/d1nozavr/DragonTree.git
-cd DragonTree
-rm -rf .git
-
-make
-```
-
-### :computer: Windows (Powershell)
-
-```pwsh
-git clone --depth 1 https://github.com/d1nozavr/DragonTree.git
-cd DragonTree
-Remove-Item .git -Recurse -Force
-
-make
-```
-
-## :large_blue_diamond: Examples. DragonTree v0.0.2-alpha
+## :large_blue_diamond: Examples for DragonTree v0.0.2-alpha
 
 ### Example 1
 
