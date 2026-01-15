@@ -7,20 +7,15 @@ from enum import Enum
 
 
 class TokenType(Enum):
-    INT_LITERAL = "INT_LITERAL"
-    FLOAT_LITERAL = "FLOAT_LITERAL"
-    STRING_LITERAL = "STRING_LITERAL"
+    NUMBER = "NUMBER"
+    STRING = "STRING"
 
     LITERAL = "LITERAL"
 
     OPERATOR = "OPERATOR"
 
     IDENTIFIER = "IDENTIFIER"
-
     KEYWORD = "KEYWORD"
-
-    NUMBER = "NUMBER"
-    STRING = "STRING"
 
     COLON = "COLON"
 

@@ -50,11 +50,11 @@ class Lexer:
             elif self._peek().isdigit():
                 self.__lex_number_literal()
 
-            elif self._peek().isalpha():
-                self.__lex_identifier()
-
             elif self._peek() == '"':
                 self.__lex_string_literal()
+
+            elif self._peek().isalpha():
+                self.__lex_word()
 
             elif self._peek() in self.OPERATORS:
                 self.__lex_operator()
@@ -117,18 +117,18 @@ class Lexer:
             string_literal += self._peek()
             self._advance()
 
-    def __lex_identifier(self):
-        identifier = ""
+    def __lex_word(self):
+        word = ""
 
         while self.pos < self.length and self._peek().isalnum():
-            identifier += self._peek()
+            word += self._peek()
             self._advance()
 
-        if identifier in self.KEYWORDS:
-            self._add_token(TokenType.KEYWORD, identifier)
+        if word in self.KEYWORDS:
+            self._add_token(TokenType.KEYWORD, word)
 
         else:
-            self._add_token(TokenType.IDENTIFIER, identifier)
+            self._add_token(TokenType.IDENTIFIER, word)
 
     def __lex_operator(self):
         op = self._peek()

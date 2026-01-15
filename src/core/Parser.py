@@ -6,7 +6,7 @@
 from core.TokenType import TokenType
 
 from core.AST.Assignment import Assignment
-from core.AST.BinaryOp import BinaryOp
+from core.AST.BinOp import BinOp
 from core.AST.Identifier import Identifier
 from core.AST.Literal import Literal
 from core.AST.Output import Output
@@ -139,7 +139,7 @@ class Parser:
 
                 rhs = self.__term()
 
-                lhs = BinaryOp(lhs, op, rhs)
+                lhs = BinOp(lhs, op, rhs)
 
                 continue
 
@@ -164,7 +164,7 @@ class Parser:
 
                 rhs = self.__factor()
 
-                lhs = BinaryOp(lhs, op, rhs)
+                lhs = BinOp(lhs, op, rhs)
 
                 continue
 
@@ -194,7 +194,7 @@ class Parser:
 
             rhs = self.__factor()
 
-            lhs = BinaryOp(lhs, op, rhs)
+            lhs = BinOp(lhs, op, rhs)
 
         return lhs
 
