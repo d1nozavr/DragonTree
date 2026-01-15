@@ -8,14 +8,14 @@
 
 ## :sparkles: Features
 
-- a
-- b
-- c
+- Interpreted Language
+- Dynamically Typed
+- Open-Source
 
 ## :star: Requirements
 
-- Python >= **3.14** (needs to be run)
-- GNU make **_(optional)_**
+- Python >= **3.14**
+- GNU make
 
 ## :rocket: Getting started
 
@@ -25,11 +25,13 @@
 
   ```sh
   git clone --depth 1 https://github.com/d1nozavr/DragonTree.git
-
   ```
-- Change directory
 
+- Change folder
+
+  ```sh
   cd DragonTree
+  ```
 
 - Remove the `.git` folder
 
@@ -45,25 +47,23 @@
 
 </details>
 
-### :alarm_clock: v0.0.3-alpha - In Development
+### Roadmap
+- Code refactoring.
 
-- Plans:
-  - Code refactoring;
+- Data types:
+  - int,
+  - float,
+  - double,
+  - string,
+  - bool,
+  - null/none.
 
-  - Data types:
-    - int,
-    - float,
-    - double,
-    - string,
-    - bool,
-    - null/none.
-  
-  - Add block statements (prototype);
+- Add block statements.
 
-  - Loops:
-    - for,
-    - while,
-    - ? loop ?.
+- Loops:
+  - for,
+  - while,
+  - ? loop ?.
 
 ## :large_blue_diamond: Examples for DragonTree v0.0.2-alpha
 
