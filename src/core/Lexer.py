@@ -35,11 +35,11 @@ class Lexer:
             "<=",
             ">=",
         }
-        self.IGNORED = {" ", "#\t", "\r", "\n"}
+        self.IGNORED = {" ", "#", "\n", "\r", "\t"}
 
     def tokenize(self):
         while self.pos < self.length:
-            if self._peek() in self.IGNORED:  # :FIXME:
+            if self._peek() in self.IGNORED:
                 if self._peek() == "#":
                     while self.pos < self.length:
                         self._advance()
