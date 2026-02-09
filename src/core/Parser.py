@@ -3,14 +3,13 @@
 #  Parser
 # =================================
 
-from core.TokenType import TokenType
-
 from core.AST.Assignment import Assignment
 from core.AST.BinOp import BinOp
 from core.AST.Identifier import Identifier
 from core.AST.Literal import Literal
 from core.AST.Output import Output
 from core.AST.UnaryOp import UnaryOp
+from core.TokenType import TokenType
 
 
 class Parser:
