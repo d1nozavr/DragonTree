@@ -48,7 +48,6 @@
 </details>
 
 ### Roadmap
-- Code refactoring.
 
 - Data types:
   - int,
