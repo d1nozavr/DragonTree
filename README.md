@@ -1,6 +1,6 @@
 # :dragon: DragonTree :deciduous_tree:
 
-### :smiley: Author: [**d1nozavr**](https://github.com/d1nozavr)
+#### :smiley: Author: [**d1nozavr**](https://github.com/d1nozavr)
 
 > [!WARNING]
 > **Status**: Work In Progress.
@@ -8,9 +8,9 @@
 
 ## :sparkles: Features
 
-- Interpreted Language
-- Dynamically Typed
 - Open-Source
+- Dynamically Typed
+- Interpreted Language
 
 ## :star: Requirements
 
@@ -49,20 +49,19 @@
 
 ### Roadmap
 
-- Data types:
-  - int,
-  - float,
-  - double,
-  - string,
-  - bool,
-  - null/none.
+- Keywords:
+  - Loops:
+    - for,
+    - while,
+    - *loop*.
 
-- Add block statements.
+- Add 'Block Statements'
 
-- Loops:
-  - for,
-  - while,
-  - ? loop ?.
+  ```ruby
+  if (condition) {
+      statement...
+  }
+  ```
 
 ## :large_blue_diamond: Examples for DragonTree v0.0.2-alpha
 
